@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowDown, ArrowRight } from "lucide-react";
 
 import heroImage from "../assets/hero-people.jpg";
+import heroVideo from "../assets/hero-people.mp4.asset.json";
 import dialogueImage from "../assets/dialogue.jpg";
 import approachImage from "../assets/approach.jpg";
 import bannerImage from "../assets/banner-hands.jpg";
@@ -55,11 +56,14 @@ function Index() {
   return (
     <>
       <section className="relative">
-        <img
-          src={heroImage}
-          alt="A diverse group of people standing together in a bright open hall"
-          width={1920}
-          height={1080}
+        <video
+          src={heroVideo.url}
+          poster={heroImage}
+          autoPlay
+          muted
+          loop
+          playsInline
+          aria-label="A diverse group of people standing together in a bright open hall"
           className="h-[70vh] min-h-[420px] w-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-navy/85 via-navy/25 to-navy/40" />
