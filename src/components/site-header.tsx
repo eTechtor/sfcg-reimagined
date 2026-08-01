@@ -1,12 +1,17 @@
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";
-import { Menu, Search, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
+
+import logo from "../assets/scfi-logo.png.asset.json";
 
 const NAV = [
+  { label: "Home", to: "/" },
   { label: "Who We Are", to: "/about" },
-  { label: "Where We Work", to: "/where-we-work" },
-  { label: "What We Do", to: "/approach" },
+  { label: "What We Do", to: "/what-we-do" },
+  { label: "Our Approach", to: "/approach" },
+  { label: "Resources", to: "/resources" },
   { label: "Get Involved", to: "/get-involved" },
+  { label: "Contact", to: "/contact" },
 ];
 
 export function SiteHeader() {
@@ -16,18 +21,22 @@ export function SiteHeader() {
     <header className="sticky top-0 z-50 border-b border-border/60 bg-navy text-navy-foreground">
       <div className="mx-auto flex max-w-7xl items-center gap-6 px-5 py-3">
         <Link to="/" className="flex items-center gap-3">
-          <span className="grid h-9 w-9 rotate-45 place-items-center rounded-sm bg-primary">
-            <span className="h-3 w-3 -rotate-45 rounded-[2px] bg-accent" />
-          </span>
-          <span className="font-display text-lg leading-none font-semibold tracking-wide uppercase">
-            Common Ground
+          <img
+            src={logo.url}
+            alt="Shavonne Care Foundation International logo"
+            width={56}
+            height={56}
+            className="h-12 w-12 rounded-sm bg-white object-contain p-1"
+          />
+          <span className="font-display text-base leading-tight font-semibold tracking-wide uppercase">
+            Shavonne Care Foundation
             <span className="block text-[0.65rem] font-normal tracking-[0.25em] opacity-70">
-              Peacebuilding Network
+              International · SCFI
             </span>
           </span>
         </Link>
 
-        <nav className="ml-auto hidden items-center gap-7 lg:flex">
+        <nav className="ml-auto hidden items-center gap-5 xl:flex">
           {NAV.map((item) => (
             <Link
               key={item.to}
@@ -38,25 +47,22 @@ export function SiteHeader() {
               {item.label}
             </Link>
           ))}
-          <button aria-label="Search" className="opacity-80 transition hover:opacity-100">
-            <Search className="h-4 w-4" />
-          </button>
-          <Link
-            to="/get-involved"
-            className="rounded-full bg-primary px-5 py-2 text-sm font-semibold text-primary-foreground transition hover:brightness-110"
-          >
-            Subscribe
-          </Link>
           <Link
             to="/donate"
             className="rounded-full bg-accent px-5 py-2 text-sm font-semibold text-accent-foreground transition hover:brightness-105"
           >
-            Give
+            Donate
+          </Link>
+          <Link
+            to="/get-involved"
+            className="rounded-full bg-brand-red px-5 py-2 text-sm font-semibold text-brand-red-foreground transition hover:brightness-110"
+          >
+            Partner With Us
           </Link>
         </nav>
 
         <button
-          className="ml-auto lg:hidden"
+          className="ml-auto xl:hidden"
           aria-label="Toggle menu"
           onClick={() => setOpen((v) => !v)}
         >
@@ -65,7 +71,7 @@ export function SiteHeader() {
       </div>
 
       {open && (
-        <nav className="flex flex-col gap-1 border-t border-white/10 px-5 pt-3 pb-5 lg:hidden">
+        <nav className="flex flex-col gap-1 border-t border-white/10 px-5 pt-3 pb-5 xl:hidden">
           {NAV.map((item) => (
             <Link
               key={item.to}
@@ -81,7 +87,14 @@ export function SiteHeader() {
             onClick={() => setOpen(false)}
             className="mt-2 rounded-full bg-accent px-5 py-2 text-center text-sm font-semibold text-accent-foreground"
           >
-            Give
+            Donate
+          </Link>
+          <Link
+            to="/get-involved"
+            onClick={() => setOpen(false)}
+            className="mt-2 rounded-full bg-brand-red px-5 py-2 text-center text-sm font-semibold text-brand-red-foreground"
+          >
+            Partner With Us
           </Link>
         </nav>
       )}

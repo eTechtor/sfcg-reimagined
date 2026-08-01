@@ -12,9 +12,11 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as ApproachRouteImport } from './routes/approach'
+import { Route as ContactRouteImport } from './routes/contact'
 import { Route as DonateRouteImport } from './routes/donate'
 import { Route as GetInvolvedRouteImport } from './routes/get-involved'
-import { Route as WhereWeWorkRouteImport } from './routes/where-we-work'
+import { Route as ResourcesRouteImport } from './routes/resources'
+import { Route as WhatWeDoRouteImport } from './routes/what-we-do'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -31,6 +33,11 @@ const ApproachRoute = ApproachRouteImport.update({
   path: '/approach',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DonateRoute = DonateRouteImport.update({
   id: '/donate',
   path: '/donate',
@@ -41,9 +48,14 @@ const GetInvolvedRoute = GetInvolvedRouteImport.update({
   path: '/get-involved',
   getParentRoute: () => rootRouteImport,
 } as any)
-const WhereWeWorkRoute = WhereWeWorkRouteImport.update({
-  id: '/where-we-work',
-  path: '/where-we-work',
+const ResourcesRoute = ResourcesRouteImport.update({
+  id: '/resources',
+  path: '/resources',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WhatWeDoRoute = WhatWeDoRouteImport.update({
+  id: '/what-we-do',
+  path: '/what-we-do',
   getParentRoute: () => rootRouteImport,
 } as any)
 
@@ -51,26 +63,32 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/approach': typeof ApproachRoute
+  '/contact': typeof ContactRoute
   '/donate': typeof DonateRoute
   '/get-involved': typeof GetInvolvedRoute
-  '/where-we-work': typeof WhereWeWorkRoute
+  '/resources': typeof ResourcesRoute
+  '/what-we-do': typeof WhatWeDoRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/approach': typeof ApproachRoute
+  '/contact': typeof ContactRoute
   '/donate': typeof DonateRoute
   '/get-involved': typeof GetInvolvedRoute
-  '/where-we-work': typeof WhereWeWorkRoute
+  '/resources': typeof ResourcesRoute
+  '/what-we-do': typeof WhatWeDoRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/approach': typeof ApproachRoute
+  '/contact': typeof ContactRoute
   '/donate': typeof DonateRoute
   '/get-involved': typeof GetInvolvedRoute
-  '/where-we-work': typeof WhereWeWorkRoute
+  '/resources': typeof ResourcesRoute
+  '/what-we-do': typeof WhatWeDoRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -78,34 +96,42 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/approach'
+    | '/contact'
     | '/donate'
     | '/get-involved'
-    | '/where-we-work'
+    | '/resources'
+    | '/what-we-do'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/about'
     | '/approach'
+    | '/contact'
     | '/donate'
     | '/get-involved'
-    | '/where-we-work'
+    | '/resources'
+    | '/what-we-do'
   id:
     | '__root__'
     | '/'
     | '/about'
     | '/approach'
+    | '/contact'
     | '/donate'
     | '/get-involved'
-    | '/where-we-work'
+    | '/resources'
+    | '/what-we-do'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   ApproachRoute: typeof ApproachRoute
+  ContactRoute: typeof ContactRoute
   DonateRoute: typeof DonateRoute
   GetInvolvedRoute: typeof GetInvolvedRoute
-  WhereWeWorkRoute: typeof WhereWeWorkRoute
+  ResourcesRoute: typeof ResourcesRoute
+  WhatWeDoRoute: typeof WhatWeDoRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -131,6 +157,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApproachRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/donate': {
       id: '/donate'
       path: '/donate'
@@ -145,11 +178,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GetInvolvedRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/where-we-work': {
-      id: '/where-we-work'
-      path: '/where-we-work'
-      fullPath: '/where-we-work'
-      preLoaderRoute: typeof WhereWeWorkRouteImport
+    '/resources': {
+      id: '/resources'
+      path: '/resources'
+      fullPath: '/resources'
+      preLoaderRoute: typeof ResourcesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/what-we-do': {
+      id: '/what-we-do'
+      path: '/what-we-do'
+      fullPath: '/what-we-do'
+      preLoaderRoute: typeof WhatWeDoRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -159,9 +199,11 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   ApproachRoute: ApproachRoute,
+  ContactRoute: ContactRoute,
   DonateRoute: DonateRoute,
   GetInvolvedRoute: GetInvolvedRoute,
-  WhereWeWorkRoute: WhereWeWorkRoute,
+  ResourcesRoute: ResourcesRoute,
+  WhatWeDoRoute: WhatWeDoRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

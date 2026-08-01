@@ -1,18 +1,19 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/approach")({
   head: () => ({
     meta: [
-      { title: "What We Do — Common Ground" },
+      { title: "Our Approach — Shavonne Care Foundation International" },
       {
         name: "description",
         content:
-          "Dialogue, media, and community-led programs that shift how people handle conflict — designed with the communities living it.",
+          "How SCFI creates sustainable change: listening to communities, designing solutions, partnering, building capacity, learning and scaling what works.",
       },
-      { property: "og:title", content: "What We Do — Common Ground" },
+      { property: "og:title", content: "Our Approach — SCFI" },
       {
         property: "og:description",
-        content: "Dialogue, media and community-led programs that shift how people handle conflict.",
+        content:
+          "Community needs assessment, program design, partnership, capacity building, monitoring and scale.",
       },
       { property: "og:url", content: "/approach" },
     ],
@@ -21,41 +22,115 @@ export const Route = createFileRoute("/approach")({
   component: ApproachPage,
 });
 
-const PILLARS = [
+const STEPS = [
   {
-    title: "Dialogue & mediation",
-    body: "Structured conversations between groups in conflict, facilitated by trusted local figures.",
+    title: "Listen and Assess",
+    body: "We engage communities and beneficiaries to understand their needs, challenges and priorities before designing an intervention.",
   },
   {
-    title: "Media for change",
-    body: "Radio dramas, talk shows and digital storytelling that model cooperation at national scale.",
+    title: "Design Sustainable Solutions",
+    body: "We develop health, nutrition, education, agriculture, career development and empowerment programs that respond to identified needs.",
   },
   {
-    title: "Youth & civic action",
-    body: "Training and small grants so young people lead the change their communities need.",
+    title: "Work Through Partnerships",
+    body: "We collaborate with communities, public institutions, civil society organizations, development partners and technical experts.",
   },
   {
-    title: "Institutional reform",
-    body: "Working with police, courts and local government to make services fair and accountable.",
+    title: "Build Local Capacity",
+    body: "We strengthen the knowledge and skills of staff members, volunteers, beneficiaries and community stakeholders.",
+  },
+  {
+    title: "Monitor, Learn and Improve",
+    body: "We assess progress, gather feedback and adapt our programs to changing needs and emerging challenges.",
+  },
+  {
+    title: "Scale What Works",
+    body: "We seek to expand effective programs, support research and advocate for policies that create lasting systemic change.",
+  },
+];
+
+const PRIORITIES = [
+  {
+    title: "Stronger Systems and Governance",
+    body: "We are strengthening our organizational structure, operational policies, governance systems, regulatory compliance and internal decision-making processes.",
+  },
+  {
+    title: "Community-Centred Program Development",
+    body: "We conduct needs assessments and design comprehensive programs in health, nutrition, education, agriculture, career development and empowerment.",
+  },
+  {
+    title: "Strategic Partnerships",
+    body: "We seek meaningful collaboration with local stakeholders, government institutions, development organizations, NGOs, researchers and technical experts.",
+  },
+  {
+    title: "Resource Mobilization",
+    body: "We pursue donations, grants, sponsorships and other responsible funding opportunities to support sustainable program implementation.",
+  },
+  {
+    title: "Capacity Building",
+    body: "We invest in training, learning, technology and infrastructure to improve the capabilities of our staff members, volunteers and beneficiaries.",
+  },
+  {
+    title: "Implementation and Accountability",
+    body: "We monitor programs, gather feedback, evaluate effectiveness and promote transparency in the allocation and use of resources.",
+  },
+  {
+    title: "Growth and Scale",
+    body: "We aim to expand effective programs, establish new community partnerships and contribute to research, advocacy and policy development.",
   },
 ];
 
 function ApproachPage() {
   return (
-    <div className="mx-auto max-w-5xl px-5 py-20">
-      <h1 className="text-4xl font-semibold text-foreground uppercase">What we do</h1>
-      <p className="mt-6 max-w-2xl text-lg text-muted-foreground">
-        Every context is different, so every program starts with listening. These are
-        the four pillars we build from.
-      </p>
-      <div className="mt-12 grid gap-6 sm:grid-cols-2">
-        {PILLARS.map((p) => (
-          <div key={p.title} className="border border-border bg-card p-7">
-            <h2 className="text-xl font-semibold text-card-foreground">{p.title}</h2>
-            <p className="mt-3 text-muted-foreground">{p.body}</p>
-          </div>
-        ))}
+    <>
+      <div className="mx-auto max-w-5xl px-5 py-20">
+        <h1 className="text-4xl font-semibold text-foreground uppercase">
+          How We Create Sustainable Change
+        </h1>
+        <p className="mt-6 max-w-3xl text-lg text-muted-foreground">
+          We believe meaningful development begins by listening to communities and
+          understanding their most urgent needs. Our approach combines community needs
+          assessments, carefully designed programs, strategic partnerships, capacity
+          building and continuous learning.
+        </p>
+        <div className="mt-12 grid gap-6 sm:grid-cols-2">
+          {STEPS.map((s) => (
+            <div key={s.title} className="border border-border bg-card p-7">
+              <h2 className="text-xl font-semibold text-card-foreground">{s.title}</h2>
+              <p className="mt-3 text-muted-foreground">{s.body}</p>
+            </div>
+          ))}
+        </div>
+        <div className="mt-10 flex flex-wrap gap-3">
+          <Link
+            to="/get-involved"
+            className="rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground"
+          >
+            Partner With Us
+          </Link>
+        </div>
       </div>
-    </div>
+
+      <section className="bg-sand">
+        <div className="mx-auto max-w-7xl px-5 py-20">
+          <h2 className="text-3xl font-semibold text-foreground md:text-4xl">
+            Building an Organization That Can Deliver Lasting Impact
+          </h2>
+          <p className="mt-4 max-w-3xl text-muted-foreground">
+            Our strategic roadmap focuses on strengthening SCFI as an institution while
+            designing, implementing and expanding programs that respond to community
+            priorities.
+          </p>
+          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {PRIORITIES.map((p) => (
+              <div key={p.title} className="border border-border bg-card p-6">
+                <h3 className="text-lg font-semibold text-card-foreground">{p.title}</h3>
+                <p className="mt-3 text-sm text-muted-foreground">{p.body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    </>
   );
 }
