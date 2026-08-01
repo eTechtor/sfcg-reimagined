@@ -2,7 +2,6 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowDown, ArrowRight } from "lucide-react";
 
 import heroImage from "../assets/hero-people.jpg";
-import heroVideo from "../assets/hero-people.mp4.asset.json";
 import dialogueImage from "../assets/dialogue.jpg";
 import approachImage from "../assets/approach.jpg";
 import bannerImage from "../assets/banner-hands.jpg";
@@ -28,6 +27,10 @@ export const Route = createFileRoute("/")({
   }),
   component: Index,
 });
+
+const HERO_VIDEO_DESKTOP = "https://www.sfcg.org/wp-content/uploads/2026/01/test.mp4";
+const HERO_VIDEO_MOBILE =
+  "https://www.sfcg.org/wp-content/uploads/2026/01/25_Traditional_Vertical-Website-Video-2.mp4";
 
 const NEWS = [
   {
@@ -57,14 +60,26 @@ function Index() {
     <>
       <section className="relative">
         <video
-          src={heroVideo.url}
+          key="hero-desktop"
+          src={HERO_VIDEO_DESKTOP}
           poster={heroImage}
           autoPlay
           muted
           loop
           playsInline
           aria-label="A diverse group of people standing together in a bright open hall"
-          className="h-[70vh] min-h-[420px] w-full object-cover"
+          className="hidden h-[70vh] min-h-[420px] w-full object-cover md:block"
+        />
+        <video
+          key="hero-mobile"
+          src={HERO_VIDEO_MOBILE}
+          poster={heroImage}
+          autoPlay
+          muted
+          loop
+          playsInline
+          aria-label="A diverse group of people standing together in a bright open hall"
+          className="block h-[80vh] min-h-[480px] w-full object-cover md:hidden"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-navy/85 via-navy/25 to-navy/40" />
         <div className="absolute inset-0 mx-auto flex max-w-7xl flex-col justify-end px-5 pb-14">
