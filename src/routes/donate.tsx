@@ -4,16 +4,17 @@ import { useState } from "react";
 export const Route = createFileRoute("/donate")({
   head: () => ({
     meta: [
-      { title: "Give — Common Ground" },
+      { title: "Donate — Shavonne Care Foundation International" },
       {
         name: "description",
         content:
-          "Support community-led peacebuilding with a one-time or monthly gift to Common Ground.",
+          "Your support helps deliver healthcare, education, nutrition, agriculture and livelihood initiatives for underserved communities.",
       },
-      { property: "og:title", content: "Give — Common Ground" },
+      { property: "og:title", content: "Your Support Can Help Create Opportunity | SCFI" },
       {
         property: "og:description",
-        content: "Support community-led peacebuilding with a one-time or monthly gift.",
+        content:
+          "Support sustainable programs in health, education, nutrition, agriculture and livelihoods.",
       },
       { property: "og:url", content: "/donate" },
     ],
@@ -30,10 +31,14 @@ function DonatePage() {
 
   return (
     <div className="mx-auto max-w-xl px-5 py-20">
-      <h1 className="text-4xl font-semibold text-foreground uppercase">Give</h1>
+      <h1 className="text-4xl font-semibold text-foreground uppercase">
+        Your Support Can Help Create Opportunity
+      </h1>
       <p className="mt-5 text-muted-foreground">
-        Your gift funds local peacebuilders doing the slow, patient work that keeps
-        communities together.
+        Your contribution can support the development and delivery of healthcare,
+        education, nutrition, agriculture and livelihood initiatives for underserved
+        communities. Every act of support brings us closer to a future in which people
+        can live healthier lives, access education and build sustainable livelihoods.
       </p>
 
       <div className="mt-10 border border-border bg-card p-7">
