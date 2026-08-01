@@ -79,13 +79,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Common Ground — Peacebuilding Network" },
+      { title: "Shavonne Care Foundation International | Health, Education & Empowerment" },
       {
         name: "description",
         content:
-          "A global network partnering with communities to shift conflict away from violence and toward trust and collaboration.",
+          "SCFI empowers underserved children, young people, women and vulnerable communities through healthcare, education, nutrition, agriculture and sustainable livelihood initiatives.",
       },
-      { property: "og:site_name", content: "Common Ground" },
+      { property: "og:site_name", content: "Shavonne Care Foundation International" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -100,7 +100,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         rel: "stylesheet",
         href: "https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600&display=swap",
       },
-      { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
+      { rel: "icon", href: "/favicon.png", type: "image/png" },
     ],
   }),
   shellComponent: RootShell,
