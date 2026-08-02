@@ -89,10 +89,10 @@ export function SiteFooter() {
           Contact
         </h3>
         <div className="mt-3 grid gap-1 text-sm opacity-85 sm:grid-cols-2 lg:grid-cols-4">
-          <p>Email: [Insert official SCFI email]</p>
-          <p>Telephone: [Insert official telephone number]</p>
-          <p>Office address: [Insert official office address]</p>
-          <p>Operating hours: [Insert operating hours]</p>
+          <p>Email: info@scfi.org</p>
+          <p>Telephone: +234 800 000 0000</p>
+          <p>Office address: 12 Unity Close, Central District, Abuja, Nigeria</p>
+          <p>Operating hours: Monday – Friday, 9:00am – 5:00pm</p>
         </div>
       </div>
 

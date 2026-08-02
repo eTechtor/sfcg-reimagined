@@ -26,7 +26,7 @@ export function SiteHeader() {
             alt="Shavonne Care Foundation International logo"
             width={56}
             height={56}
-            className="h-12 w-12 rounded-sm bg-white object-contain p-1"
+            className="h-12 w-12 object-contain"
           />
           <span className="font-display text-base leading-tight font-semibold tracking-wide uppercase">
             Shavonne Care Foundation

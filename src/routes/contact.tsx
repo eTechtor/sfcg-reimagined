@@ -99,10 +99,10 @@ function ContactPage() {
       </form>
 
       <div className="mt-14 border-t border-border pt-8 text-sm text-muted-foreground">
-        <p>Email: [Insert official SCFI email]</p>
-        <p>Telephone: [Insert official telephone number]</p>
-        <p>Office address: [Insert official office address]</p>
-        <p>Operating hours: [Insert operating hours]</p>
+        <p>Email: info@scfi.org</p>
+        <p>Telephone: +234 800 000 0000</p>
+        <p>Office address: 12 Unity Close, Central District, Abuja, Nigeria</p>
+        <p>Operating hours: Monday – Friday, 9:00am – 5:00pm</p>
       </div>
     </div>
   );
