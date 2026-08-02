@@ -1,4 +1,7 @@
 import { Link } from "@tanstack/react-router";
+import { Facebook, Instagram, Linkedin, Twitter, Youtube } from "lucide-react";
+
+import logoMark from "../assets/scfi-mark.png.asset.json";
 
 const COLUMNS = [
   {
@@ -52,19 +55,55 @@ const LEGAL = [
   "Financial Transparency",
 ];
 
+const SOCIALS = [
+  { label: "Facebook", href: "https://facebook.com", Icon: Facebook },
+  { label: "Instagram", href: "https://instagram.com", Icon: Instagram },
+  { label: "X", href: "https://x.com", Icon: Twitter },
+  { label: "LinkedIn", href: "https://linkedin.com", Icon: Linkedin },
+  { label: "YouTube", href: "https://youtube.com", Icon: Youtube },
+];
+
 export function SiteFooter() {
   return (
     <footer className="bg-navy text-navy-foreground">
       <div className="mx-auto grid max-w-7xl gap-10 px-5 py-14 md:grid-cols-3 lg:grid-cols-6">
         <div className="lg:col-span-2">
-          <p className="font-display text-xl font-semibold tracking-wide uppercase">
-            Shavonne Care Foundation International
-          </p>
+          <Link to="/" className="flex items-center gap-3">
+            <img
+              src={logoMark.url}
+              alt="Shavonne Care Foundation International logo"
+              width={72}
+              height={54}
+              className="h-14 w-auto object-contain"
+            />
+            <span className="font-display leading-tight uppercase">
+              <span className="block text-xl font-bold tracking-[0.3em] text-white">
+                SCFI
+              </span>
+              <span className="block text-[0.65rem] tracking-[0.18em] opacity-75">
+                Shavonne Care Foundation International
+              </span>
+            </span>
+          </Link>
           <p className="mt-3 max-w-sm text-sm opacity-75">
             Empowering marginalized communities — particularly children, young people,
             women and vulnerable groups — through sustainable health, education,
             nutrition, agriculture and livelihood initiatives.
           </p>
+          <div className="mt-5 flex items-center gap-3">
+            {SOCIALS.map(({ label, href, Icon }) => (
+              <a
+                key={label}
+                href={href}
+                target="_blank"
+                rel="noreferrer noopener"
+                aria-label={label}
+                className="flex h-9 w-9 items-center justify-center rounded-full border border-white/20 transition hover:bg-white/10"
+              >
+                <Icon className="h-4 w-4" />
+              </a>
+            ))}
+          </div>
         </div>
         {COLUMNS.map((col) => (
           <div key={col.title}>
