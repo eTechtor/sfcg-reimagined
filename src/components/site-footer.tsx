@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { Facebook, Instagram, Linkedin, Twitter, Youtube } from "lucide-react";
 
-import logoMark from "../assets/scfi-mark.png.asset.json";
+import logoMark from "../assets/scfi-mark.png";
 
 const COLUMNS = [
   {
@@ -70,7 +70,7 @@ export function SiteFooter() {
         <div className="lg:col-span-2">
           <Link to="/" className="flex items-center gap-3">
             <img
-              src={logoMark.url}
+              src={logoMark}
               alt="Shavonne Care Foundation International logo"
               width={72}
               height={54}

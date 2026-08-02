@@ -2,7 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 
-import logoMark from "../assets/scfi-mark.png.asset.json";
+import logoMark from "../assets/scfi-mark.png";
 
 const NAV = [
   { label: "Home", to: "/" },
@@ -22,7 +22,7 @@ export function SiteHeader() {
       <div className="mx-auto flex max-w-7xl items-center gap-6 px-5 py-3">
         <Link to="/" className="flex items-center gap-3">
           <img
-            src={logoMark.url}
+            src={logoMark}
             alt="Shavonne Care Foundation International logo"
             width={64}
             height={48}
