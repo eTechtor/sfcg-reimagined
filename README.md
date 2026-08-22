@@ -1,12 +1,8 @@
 # SFCG Reimagined
 
-clone this website:https://www.sfcg.org/
+## Build with 
 
-This project was built with [Lovable](https://lovable.dev).
-
-## Build with Lovable
-
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/edc8099c-62c6-454e-bad5-5b611cded330).
+Continue developing this project in the (https://lovable.dev/projects/edc8099c-62c6-454e-bad5-5b611cded330).
 
 - **Ship faster**: describe what you want to build and Lovable handles the code.
 - **Stay in sync**: every change made in Lovable is committed straight to this repository.
