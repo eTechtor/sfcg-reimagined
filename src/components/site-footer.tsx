@@ -56,8 +56,16 @@ const LEGAL = [
 ];
 
 const SOCIALS = [
-  { label: "Facebook", href: "https://facebook.com", Icon: Facebook },
-  { label: "Instagram", href: "https://instagram.com", Icon: Instagram },
+  {
+    label: "Facebook",
+    href: "https://www.facebook.com/share/1HVfwsYAHz",
+    Icon: Facebook,
+  },
+  {
+    label: "Instagram",
+    href: "https://www.instagram.com/shavonnecarefoundation?igsh=eHczN284aHYwOWEy",
+    Icon: Instagram,
+  },
   { label: "X", href: "https://x.com", Icon: Twitter },
   { label: "LinkedIn", href: "https://linkedin.com", Icon: Linkedin },
   { label: "YouTube", href: "https://youtube.com", Icon: Youtube },
@@ -129,8 +137,10 @@ export function SiteFooter() {
         </h3>
         <div className="mt-3 grid gap-1 text-sm opacity-85 sm:grid-cols-2 lg:grid-cols-4">
           <p>Email: info@scfi.org</p>
-          <p>Telephone: +234 800 000 0000</p>
-          <p>Office address: 12 Unity Close, Central District, Abuja, Nigeria</p>
+          <p>
+            Telephone: <a href="tel:+2349123056270">+2349123056270</a>
+          </p>
+          <p>Office address: House 1, Afiyo Estate, Loko Junction, Orozo, FCT Abuja</p>
           <p>Operating hours: Monday – Friday, 9:00am – 5:00pm</p>
         </div>
       </div>

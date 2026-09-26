@@ -100,8 +100,10 @@ function ContactPage() {
 
       <div className="mt-14 border-t border-border pt-8 text-sm text-muted-foreground">
         <p>Email: info@scfi.org</p>
-        <p>Telephone: +234 800 000 0000</p>
-        <p>Office address: 12 Unity Close, Central District, Abuja, Nigeria</p>
+        <p>
+          Telephone: <a href="tel:+2349123056270">+2349123056270</a>
+        </p>
+        <p>Office address: House 1, Afiyo Estate, Loko Junction, Orozo, FCT Abuja</p>
         <p>Operating hours: Monday – Friday, 9:00am – 5:00pm</p>
       </div>
     </div>

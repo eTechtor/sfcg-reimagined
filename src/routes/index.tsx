@@ -115,19 +115,6 @@ const UPDATES = [
   },
 ];
 
-const SDGS = [
-  "SDG 1: No Poverty",
-  "SDG 2: Zero Hunger",
-  "SDG 3: Good Health and Wellbeing",
-  "SDG 4: Quality Education",
-  "SDG 5: Gender Equality",
-  "SDG 6: Clean Water and Sanitation",
-  "SDG 10: Reduced Inequalities",
-  "SDG 12: Responsible Consumption and Production",
-  "SDG 13: Climate Action",
-  "SDG 17: Partnerships for the Goals",
-];
-
 function Index() {
   return (
     <>
@@ -368,29 +355,6 @@ function Index() {
               </article>
             ))}
           </div>
-        </div>
-      </section>
-
-      <section className="bg-navy text-navy-foreground">
-        <div className="mx-auto max-w-7xl px-5 py-20">
-          <h2 className="text-3xl font-semibold md:text-4xl">
-            Contributing to the Sustainable Development Goals
-          </h2>
-          <p className="mt-4 max-w-3xl opacity-85">
-            SCFI's thematic priorities contribute to global efforts to end poverty,
-            improve health and education, promote gender equality, strengthen food
-            security, reduce inequality and build effective partnerships.
-          </p>
-          <ul className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-            {SDGS.map((goal) => (
-              <li
-                key={goal}
-                className="border border-white/15 px-4 py-3 text-sm font-medium"
-              >
-                {goal}
-              </li>
-            ))}
-          </ul>
         </div>
       </section>
 
