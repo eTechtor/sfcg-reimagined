@@ -31,6 +31,7 @@ const COLUMNS = [
       { label: "Donate", to: "/donate" },
       { label: "Volunteer", to: "/get-involved" },
       { label: "Partner With Us", to: "/get-involved" },
+      { label: "Careers", to: "/careers" },
       { label: "Fund a Program", to: "/donate" },
       { label: "Subscribe to Updates", to: "/get-involved" },
     ],
@@ -85,18 +86,16 @@ export function SiteFooter() {
               className="h-14 w-auto object-contain"
             />
             <span className="font-display leading-tight uppercase">
-              <span className="block text-xl font-bold tracking-[0.3em] text-white">
-                SCFI
-              </span>
+              <span className="block text-xl font-bold tracking-[0.3em] text-white">SCFI</span>
               <span className="block text-[0.65rem] tracking-[0.18em] opacity-75">
                 Shavonne Care Foundation International
               </span>
             </span>
           </Link>
           <p className="mt-3 max-w-sm text-sm opacity-75">
-            Empowering marginalized communities — particularly children, young people,
-            women and vulnerable groups — through sustainable health, education,
-            nutrition, agriculture and livelihood initiatives.
+            Empowering marginalized communities — particularly children, young people, women and
+            vulnerable groups — through sustainable health, education, nutrition, agriculture and
+            livelihood initiatives.
           </p>
           <div className="mt-5 flex items-center gap-3">
             {SOCIALS.map(({ label, href, Icon }) => (
@@ -132,9 +131,7 @@ export function SiteFooter() {
       </div>
 
       <div className="mx-auto max-w-7xl px-5 pb-10">
-        <h3 className="text-sm font-semibold tracking-[0.18em] uppercase opacity-70">
-          Contact
-        </h3>
+        <h3 className="text-sm font-semibold tracking-[0.18em] uppercase opacity-70">Contact</h3>
         <div className="mt-3 grid gap-1 text-sm opacity-85 sm:grid-cols-2 lg:grid-cols-4">
           <p>Email: info@scfi.org</p>
           <p>

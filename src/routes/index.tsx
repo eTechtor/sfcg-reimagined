@@ -1,10 +1,13 @@
+import { useEffect, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowDown, ArrowRight, Play } from "lucide-react";
+import { ArrowRight, ChevronLeft, ChevronRight, Heart, Play } from "lucide-react";
 
-import heroImage from "../assets/hero-people.jpg";
-import dialogueImage from "../assets/dialogue.jpg";
-import approachImage from "../assets/approach.jpg";
-import bannerImage from "../assets/banner-hands.jpg";
+import communityGatheringImage from "../assets/hero-community-gathering.jpg";
+import healthOutreachImage from "../assets/hero-health-outreach.jpg";
+import communityListeningImage from "../assets/hero-community-listening.jpg";
+import dialogueImage from "../assets/scfi-training.jpg";
+import approachImage from "../assets/scfi-board-meeting.jpg";
+import bannerImage from "../assets/scfi-training.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -32,10 +35,6 @@ export const Route = createFileRoute("/")({
   }),
   component: Index,
 });
-
-const HERO_VIDEO_DESKTOP = "https://www.sfcg.org/wp-content/uploads/2026/01/test.mp4";
-const HERO_VIDEO_MOBILE =
-  "https://www.sfcg.org/wp-content/uploads/2026/01/25_Traditional_Vertical-Website-Video-2.mp4";
 
 const APPROACH_HIGHLIGHTS = [
   {
@@ -115,69 +114,104 @@ const UPDATES = [
   },
 ];
 
+const HERO_SLIDES = [
+  communityGatheringImage,
+  healthOutreachImage,
+  communityListeningImage,
+] as const;
+
 function Index() {
+  const [activeHeroSlide, setActiveHeroSlide] = useState(0);
+
+  useEffect(() => {
+    const slideshow = window.setInterval(() => {
+      setActiveHeroSlide((currentSlide) => (currentSlide + 1) % HERO_SLIDES.length);
+    }, 6000);
+
+    return () => window.clearInterval(slideshow);
+  }, []);
+
+  const showPreviousHeroSlide = () => {
+    setActiveHeroSlide((currentSlide) =>
+      currentSlide === 0 ? HERO_SLIDES.length - 1 : currentSlide - 1,
+    );
+  };
+
+  const showNextHeroSlide = () => {
+    setActiveHeroSlide((currentSlide) => (currentSlide + 1) % HERO_SLIDES.length);
+  };
+
   return (
     <>
-      <section className="relative">
-        <video
-          key="hero-desktop"
-          src={HERO_VIDEO_DESKTOP}
-          poster={heroImage}
-          autoPlay
-          muted
-          loop
-          playsInline
-          aria-label="Children, women and community members participating in a Shavonne Care Foundation International outreach program."
-          className="hidden h-[76vh] min-h-[460px] w-full object-cover md:block"
-        />
-        <video
-          key="hero-mobile"
-          src={HERO_VIDEO_MOBILE}
-          poster={heroImage}
-          autoPlay
-          muted
-          loop
-          playsInline
-          aria-label="Children, women and community members participating in a Shavonne Care Foundation International outreach program."
-          className="block h-[86vh] min-h-[520px] w-full object-cover md:hidden"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-navy/90 via-navy/40 to-navy/45" />
-        <div className="absolute inset-0 mx-auto flex max-w-7xl flex-col justify-end px-5 pb-14">
-          <p className="text-xs font-semibold tracking-[0.3em] text-accent uppercase">
-            Shavonne Care Foundation International
-          </p>
-          <h1 className="mt-4 max-w-4xl text-4xl leading-[1.05] font-semibold text-navy-foreground uppercase md:text-6xl">
-            Building healthier, educated and economically empowered communities
+      <section className="home-hero" aria-labelledby="hero-heading">
+        {HERO_SLIDES.map((image, index) => (
+          <img
+            key={image}
+            src={image}
+            alt=""
+            aria-hidden="true"
+            fetchPriority={index === 0 ? "high" : "auto"}
+            width={1280}
+            height={720}
+            className={`home-hero__image ${index === activeHeroSlide ? "home-hero__image--active" : ""}`}
+          />
+        ))}
+        <div className="home-hero__shade" />
+        <div className="home-hero__inner">
+          <p className="home-hero__eyebrow">Shavonne Care Foundation International</p>
+          <h1 id="hero-heading" className="home-hero__heading">
+            Building healthier, <br />
+            educated and economically <span>empowered communities</span>
           </h1>
-          <p className="mt-5 max-w-2xl text-navy-foreground/85">
-            SCFI works with marginalized and underserved communities — particularly
-            children, young people, women and vulnerable groups — to improve access to
-            healthcare, education, nutrition, food security and sustainable economic
-            opportunities. Through community-led and sustainable initiatives, we help
-            individuals and families overcome barriers, strengthen their livelihoods and
-            build a better future.
+          <p className="home-hero__description">
+            SCFI works with marginalized and underserved communities — particularly children, young
+            people, women and vulnerable groups — to improve access to healthcare, education,
+            nutrition, food security and sustainable economic opportunities. Through community-led
+            and sustainable initiatives, we help individuals and families overcome barriers,
+            strengthen their livelihoods and build a better future.
           </p>
-          <div className="mt-7 flex flex-wrap gap-3">
-            <Link
-              to="/donate"
-              className="inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-accent-foreground"
-            >
-              Support Our Mission <ArrowRight className="h-4 w-4" />
+          <div className="home-hero__actions">
+            <Link to="/what-we-do" className="hero-button hero-button--primary">
+              Explore Our Work <ArrowRight size={21} aria-hidden="true" />
             </Link>
-            <Link
-              to="/what-we-do"
-              className="inline-flex items-center gap-2 rounded-full border border-white/40 px-6 py-3 text-sm font-semibold text-navy-foreground"
-            >
-              Explore Our Work
-            </Link>
-            <Link
-              to="/about"
-              className="inline-flex items-center gap-2 rounded-full bg-brand-red px-6 py-3 text-sm font-semibold text-brand-red-foreground"
-            >
-              <Play className="h-4 w-4" /> Watch Our Story
+            <Link to="/donate" className="hero-button hero-button--outline">
+              Support Our Mission <Heart size={21} fill="currentColor" aria-hidden="true" />
             </Link>
           </div>
-          <ArrowDown className="mt-8 h-6 w-6 animate-bounce text-navy-foreground/80" />
+          <Link to="/about" className="home-hero__story">
+            <Play size={15} fill="currentColor" aria-hidden="true" />
+            Watch Our Story
+          </Link>
+        </div>
+        <div className="home-hero__slider-controls" role="group" aria-label="Hero photo controls">
+          <button
+            type="button"
+            className="home-hero__slider-arrow"
+            onClick={showPreviousHeroSlide}
+            aria-label="Show previous hero photo"
+          >
+            <ChevronLeft size={20} aria-hidden="true" />
+          </button>
+          <div className="home-hero__slider-dots" aria-label="Choose a hero photo">
+            {HERO_SLIDES.map((image, index) => (
+              <button
+                key={image}
+                type="button"
+                className={`home-hero__slider-dot ${index === activeHeroSlide ? "home-hero__slider-dot--active" : ""}`}
+                onClick={() => setActiveHeroSlide(index)}
+                aria-label={`Show hero photo ${index + 1}`}
+                aria-pressed={index === activeHeroSlide}
+              />
+            ))}
+          </div>
+          <button
+            type="button"
+            className="home-hero__slider-arrow"
+            onClick={showNextHeroSlide}
+            aria-label="Show next hero photo"
+          >
+            <ChevronRight size={20} aria-hidden="true" />
+          </button>
         </div>
       </section>
 
@@ -185,7 +219,7 @@ function Index() {
         <div className="mx-auto grid max-w-7xl items-center gap-12 px-5 py-20 md:grid-cols-2">
           <img
             src={dialogueImage}
-            alt="Community members gathered together during an outreach session"
+            alt="Participants taking part in an SCFI training session"
             width={1200}
             height={900}
             loading="lazy"
@@ -193,28 +227,28 @@ function Index() {
           />
           <div>
             <h2 className="text-3xl font-semibold text-foreground md:text-4xl">
-              When healthcare, education, food or opportunity is out of reach, an entire
-              future can be affected
+              When healthcare, education, food or opportunity is out of reach, an entire future can
+              be affected
             </h2>
             <p className="mt-5 text-muted-foreground">
-              For many underserved families, access to essential services remains
-              limited. Children may struggle to receive quality education, women may lack
-              adequate healthcare and nutrition, and young people may have few
-              opportunities to develop skills or earn a sustainable income.
+              For many underserved families, access to essential services remains limited. Children
+              may struggle to receive quality education, women may lack adequate healthcare and
+              nutrition, and young people may have few opportunities to develop skills or earn a
+              sustainable income.
             </p>
             <p className="mt-4 font-medium text-foreground">
               Shavonne Care Foundation International exists to help close these gaps.
             </p>
             <p className="mt-4 text-muted-foreground">
-              We design and support practical interventions in public health, education,
-              nutrition, agriculture, career development and economic empowerment. Our
-              work is focused on reaching people who are often overlooked, including
-              low-income communities and people living in remote or hard-to-reach areas.
+              We design and support practical interventions in public health, education, nutrition,
+              agriculture, career development and economic empowerment. Our work is focused on
+              reaching people who are often overlooked, including low-income communities and people
+              living in remote or hard-to-reach areas.
             </p>
             <p className="mt-4 text-sm text-muted-foreground italic">
-              SCFI was incorporated on 20 April 2022 to advance sustainable development
-              and improve the wellbeing of children, young people, women, indigent people
-              and other vulnerable groups.
+              SCFI was incorporated on 20 April 2022 to advance sustainable development and improve
+              the wellbeing of children, young people, women, indigent people and other vulnerable
+              groups.
             </p>
             <Link
               to="/about"
@@ -233,20 +267,19 @@ function Index() {
               How We Create Sustainable Change
             </h2>
             <p className="mt-5 text-muted-foreground">
-              We believe meaningful development begins by listening to communities and
-              understanding their most urgent needs.
+              We believe meaningful development begins by listening to communities and understanding
+              their most urgent needs.
             </p>
             <p className="mt-4 text-muted-foreground">
-              Our approach combines community needs assessments, carefully designed
-              programs, strategic partnerships, capacity building and continuous
-              learning. We work to ensure that every intervention is relevant, inclusive,
-              transparent and capable of creating long-term value.
+              Our approach combines community needs assessments, carefully designed programs,
+              strategic partnerships, capacity building and continuous learning. We work to ensure
+              that every intervention is relevant, inclusive, transparent and capable of creating
+              long-term value.
             </p>
             <p className="mt-4 text-muted-foreground">
-              We monitor our programs, collect feedback and use evidence to improve our
-              work. As successful initiatives grow, we seek opportunities to expand them,
-              strengthen local systems and advocate for policies that support sustainable
-              development.
+              We monitor our programs, collect feedback and use evidence to improve our work. As
+              successful initiatives grow, we seek opportunities to expand them, strengthen local
+              systems and advocate for policies that support sustainable development.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link
@@ -265,7 +298,7 @@ function Index() {
           </div>
           <img
             src={approachImage}
-            alt="Program staff and community stakeholders planning an initiative together"
+            alt="Community and organizational stakeholders meeting around a conference table"
             width={1200}
             height={900}
             loading="lazy"
@@ -288,13 +321,13 @@ function Index() {
             Empowering marginalized communities through sustainable initiatives
           </h2>
           <p className="mt-6 text-lg text-muted-foreground">
-            Our mission is to empower marginalized communities — particularly children,
-            young people, women and vulnerable groups — through sustainable programs that
-            improve health, education, nutrition, food security and economic opportunity.
+            Our mission is to empower marginalized communities — particularly children, young
+            people, women and vulnerable groups — through sustainable programs that improve health,
+            education, nutrition, food security and economic opportunity.
           </p>
           <p className="mt-6 font-medium text-foreground italic">
-            We envision a world where every individual has access to quality healthcare,
-            education and economic opportunities.
+            We envision a world where every individual has access to quality healthcare, education
+            and economic opportunities.
           </p>
         </div>
       </section>
@@ -329,12 +362,10 @@ function Index() {
 
       <section className="bg-background">
         <div className="mx-auto max-w-7xl px-5 py-20">
-          <h2 className="text-3xl font-semibold text-foreground md:text-4xl">
-            Our Areas of Focus
-          </h2>
+          <h2 className="text-3xl font-semibold text-foreground md:text-4xl">Our Areas of Focus</h2>
           <p className="mt-4 max-w-3xl text-muted-foreground">
-            Our programs address interconnected challenges that affect the health,
-            dignity and economic wellbeing of underserved communities.
+            Our programs address interconnected challenges that affect the health, dignity and
+            economic wellbeing of underserved communities.
           </p>
           <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {FOCUS_AREAS.map((item) => (
@@ -342,14 +373,9 @@ function Index() {
                 key={item.title}
                 className="group flex flex-col border border-border bg-card p-6 transition hover:border-primary"
               >
-                <h3 className="text-lg font-semibold text-card-foreground">
-                  {item.title}
-                </h3>
+                <h3 className="text-lg font-semibold text-card-foreground">{item.title}</h3>
                 <p className="mt-3 text-sm text-muted-foreground">{item.body}</p>
-                <Link
-                  to="/what-we-do"
-                  className="mt-auto pt-6 text-sm font-semibold text-primary"
-                >
+                <Link to="/what-we-do" className="mt-auto pt-6 text-sm font-semibold text-primary">
                   {item.action} →
                 </Link>
               </article>
@@ -364,18 +390,17 @@ function Index() {
             Sustainable Change Requires Partnership
           </h2>
           <p className="mt-5 text-muted-foreground">
-            The challenges facing vulnerable communities cannot be addressed by one
-            organization alone.
+            The challenges facing vulnerable communities cannot be addressed by one organization
+            alone.
           </p>
           <p className="mt-4 text-muted-foreground">
-            SCFI welcomes collaboration with community leaders, government institutions,
-            development agencies, civil society organizations, private-sector partners,
-            research institutions, healthcare professionals, educators and supporters who
-            share our vision.
+            SCFI welcomes collaboration with community leaders, government institutions, development
+            agencies, civil society organizations, private-sector partners, research institutions,
+            healthcare professionals, educators and supporters who share our vision.
           </p>
           <p className="mt-4 text-muted-foreground">
-            Together, we can mobilize resources, strengthen local capacity, extend
-            essential services and develop solutions that create lasting impact.
+            Together, we can mobilize resources, strengthen local capacity, extend essential
+            services and develop solutions that create lasting impact.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <Link
@@ -403,23 +428,15 @@ function Index() {
             Stories, Programs and Updates
           </h2>
           <p className="mt-4 max-w-3xl text-muted-foreground">
-            Follow the development of our programs, community activities, partnerships
-            and organizational milestones.
+            Follow the development of our programs, community activities, partnerships and
+            organizational milestones.
           </p>
           <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {UPDATES.map((item) => (
-              <article
-                key={item.title}
-                className="flex flex-col border border-border bg-card p-6"
-              >
-                <h3 className="text-lg font-semibold text-card-foreground">
-                  {item.title}
-                </h3>
+              <article key={item.title} className="flex flex-col border border-border bg-card p-6">
+                <h3 className="text-lg font-semibold text-card-foreground">{item.title}</h3>
                 <p className="mt-3 text-sm text-muted-foreground">{item.body}</p>
-                <Link
-                  to="/resources"
-                  className="mt-auto pt-6 text-sm font-semibold text-primary"
-                >
+                <Link to="/resources" className="mt-auto pt-6 text-sm font-semibold text-primary">
                   {item.action} →
                 </Link>
               </article>
@@ -437,7 +454,7 @@ function Index() {
       <section className="relative">
         <img
           src={bannerImage}
-          alt="Community members joining hands in support of one another"
+          alt="Participants gathered for an SCFI training session"
           width={1920}
           height={720}
           loading="lazy"
@@ -449,9 +466,8 @@ function Index() {
             Stay Connected to Our Work
           </h2>
           <p className="mt-4 text-navy-foreground/85">
-            Receive updates about SCFI's programs, community activities, partnership
-            opportunities and ways to support children, women, young people and
-            vulnerable communities.
+            Receive updates about SCFI's programs, community activities, partnership opportunities
+            and ways to support children, women, young people and vulnerable communities.
           </p>
           <Link
             to="/get-involved"
@@ -468,11 +484,10 @@ function Index() {
             Your Support Can Help Create Opportunity
           </h2>
           <p className="mt-5 text-muted-foreground">
-            Your contribution can support the development and delivery of healthcare,
-            education, nutrition, agriculture and livelihood initiatives for underserved
-            communities. Every act of support brings us closer to a future in which
-            people can live healthier lives, access education and build sustainable
-            livelihoods.
+            Your contribution can support the development and delivery of healthcare, education,
+            nutrition, agriculture and livelihood initiatives for underserved communities. Every act
+            of support brings us closer to a future in which people can live healthier lives, access
+            education and build sustainable livelihoods.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
             <Link

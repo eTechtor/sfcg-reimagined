@@ -1,105 +1,252 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useRouterState } from "@tanstack/react-router";
 import { useState } from "react";
-import { Menu, X } from "lucide-react";
+import { ArrowUpRight, ChevronDown, Heart, Menu, Search } from "lucide-react";
 
 import logoMark from "../assets/scfi-mark.png";
+import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger } from "./ui/dialog";
 
 const NAV = [
-  { label: "Home", to: "/" },
-  { label: "Who We Are", to: "/about" },
-  { label: "What We Do", to: "/what-we-do" },
-  { label: "Our Approach", to: "/approach" },
-  { label: "Resources", to: "/resources" },
-  { label: "Get Involved", to: "/get-involved" },
-  { label: "Contact", to: "/contact" },
-];
+  { label: "Home", to: "/", description: "Welcome to Shavonne Care Foundation International." },
+  { label: "About Us", to: "/about", description: "Our story, mission, vision, values and team." },
+  {
+    label: "Our Work",
+    to: "/what-we-do",
+    description:
+      "Health, education, nutrition, agriculture, food security and empowerment programs.",
+  },
+  {
+    label: "Our Impact",
+    to: "/approach",
+    description: "Our approach to sustainable change, community partnerships and accountability.",
+  },
+  {
+    label: "News & Stories",
+    to: "/resources",
+    description: "News, program updates, publications, reports and resources.",
+  },
+  {
+    label: "Get Involved",
+    to: "/get-involved",
+    description: "Volunteer, partner with us and support community-led development.",
+  },
+] as const;
+
+const SEARCH_PAGES = [
+  ...NAV,
+  {
+    label: "Donate",
+    to: "/donate",
+    description: "Support our mission and help communities thrive.",
+  },
+  {
+    label: "Contact Us",
+    to: "/contact",
+    description: "Office address in Orozo, Abuja, telephone, email and social media.",
+  },
+  {
+    label: "Careers",
+    to: "/careers",
+    description:
+      "Current opportunities and ways to work with Shavonne Care Foundation International.",
+  },
+] as const;
 
 export function SiteHeader() {
-  const [open, setOpen] = useState(false);
+  const pathname = useRouterState({ select: (state) => state.location.pathname });
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [involvementOpen, setInvolvementOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [query, setQuery] = useState("");
+  const terms = query.trim().toLowerCase().split(/\s+/).filter(Boolean);
+  const results = SEARCH_PAGES.filter((page) =>
+    terms.every((term) => `${page.label} ${page.description}`.toLowerCase().includes(term)),
+  );
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border/60 bg-navy text-navy-foreground">
-      <div className="mx-auto flex max-w-7xl items-center gap-6 px-5 py-3">
-        <Link to="/" className="flex items-center gap-3">
-          <img
-            src={logoMark}
-            alt="Shavonne Care Foundation International logo"
-            width={64}
-            height={48}
-            className="h-11 w-auto object-contain"
-          />
-          <span className="font-display leading-tight uppercase">
-            <span className="block text-lg font-bold tracking-[0.3em] text-white">
-              SCFI
-            </span>
-            <span className="block text-[0.62rem] font-normal tracking-[0.18em] opacity-75">
-              Shavonne Care Foundation International
-            </span>
+    <header
+      className={`site-header ${pathname === "/" ? "site-header--overlay" : "site-header--solid"}`}
+    >
+      <div className="site-header__inner">
+        <Link
+          to="/"
+          className="site-brand"
+          aria-label="Shavonne Care Foundation International — Home"
+        >
+          <img src={logoMark} alt="" width={72} height={72} className="site-brand__mark" />
+          <span className="site-brand__name">
+            <span>Shavonne Care</span>
+            <span>Foundation International</span>
+            <span className="site-brand__initials">(SCFI)</span>
           </span>
+          <span className="site-brand__compact">SCFI</span>
         </Link>
 
-        <nav className="ml-auto hidden items-center gap-5 xl:flex">
-          {NAV.map((item) => (
-            <Link
-              key={item.to}
-              to={item.to}
-              className="text-sm font-medium tracking-wide opacity-90 transition hover:opacity-100"
-              activeProps={{ className: "opacity-100 underline underline-offset-8" }}
-            >
-              {item.label}
-            </Link>
-          ))}
-          <Link
-            to="/donate"
-            className="rounded-full bg-accent px-5 py-2 text-sm font-semibold text-accent-foreground transition hover:brightness-105"
-          >
-            Donate
-          </Link>
-          <Link
-            to="/get-involved"
-            className="rounded-full bg-brand-red px-5 py-2 text-sm font-semibold text-brand-red-foreground transition hover:brightness-110"
-          >
-            Partner With Us
-          </Link>
+        <nav className="site-nav" aria-label="Main navigation">
+          {NAV.map((item) =>
+            item.to === "/get-involved" ? (
+              <div key={item.to} className="site-nav__item site-nav__item--has-menu">
+                <Link
+                  to={item.to}
+                  className="site-nav__link"
+                  activeOptions={{ exact: true }}
+                  activeProps={{ className: "site-nav__link--active" }}
+                >
+                  {item.label}
+                </Link>
+                <button
+                  type="button"
+                  className="site-nav__toggle"
+                  aria-label="Show Get Involved links"
+                  aria-expanded={involvementOpen}
+                  aria-controls="get-involved-menu"
+                  onClick={() => setInvolvementOpen((open) => !open)}
+                >
+                  <ChevronDown size={16} aria-hidden="true" />
+                </button>
+                {involvementOpen ? (
+                  <div id="get-involved-menu" className="site-nav__submenu">
+                    <Link to="/careers" onClick={() => setInvolvementOpen(false)}>
+                      Careers
+                    </Link>
+                  </div>
+                ) : null}
+              </div>
+            ) : (
+              <Link
+                key={item.to}
+                to={item.to}
+                className="site-nav__link"
+                activeOptions={{ exact: true }}
+                activeProps={{ className: "site-nav__link--active" }}
+              >
+                {item.label}
+              </Link>
+            ),
+          )}
         </nav>
 
-        <button
-          className="ml-auto xl:hidden"
-          aria-label="Toggle menu"
-          onClick={() => setOpen((v) => !v)}
-        >
-          {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-        </button>
+        <div className="site-header__actions">
+          <Dialog
+            open={searchOpen}
+            onOpenChange={(open) => {
+              setSearchOpen(open);
+              if (!open) setQuery("");
+            }}
+          >
+            <DialogTrigger asChild>
+              <button className="site-icon-button" aria-label="Search the website">
+                <Search aria-hidden="true" size={23} />
+              </button>
+            </DialogTrigger>
+            <DialogContent className="site-search">
+              <DialogTitle className="font-sans text-2xl">Search SCFI</DialogTitle>
+              <DialogDescription>
+                Find our work, stories and ways to get involved.
+              </DialogDescription>
+              <label className="site-search__input">
+                <Search size={20} aria-hidden="true" />
+                <span className="sr-only">Search pages</span>
+                <input
+                  type="search"
+                  value={query}
+                  onChange={(event) => setQuery(event.target.value)}
+                  onKeyDown={(event) => {
+                    if (event.key === "Escape") {
+                      event.preventDefault();
+                      setSearchOpen(false);
+                      setQuery("");
+                    }
+                  }}
+                  placeholder="Try health, volunteer or contact…"
+                  autoComplete="off"
+                />
+              </label>
+              <p className="text-sm text-muted-foreground" role="status">
+                {terms.length
+                  ? `${results.length} ${results.length === 1 ? "page" : "pages"} found`
+                  : "Explore our pages"}
+              </p>
+              <ul className="site-search__results">
+                {results.map((page) => (
+                  <li key={page.to}>
+                    <Link
+                      to={page.to}
+                      onClick={() => {
+                        setSearchOpen(false);
+                        setQuery("");
+                      }}
+                      className="site-search__result"
+                    >
+                      <span>
+                        <strong>{page.label}</strong>
+                        <span>{page.description}</span>
+                      </span>
+                      <ArrowUpRight size={19} aria-hidden="true" />
+                    </Link>
+                  </li>
+                ))}
+                {results.length === 0 && (
+                  <li className="py-5 text-muted-foreground">
+                    No matching pages. Try “education”, “donate” or “contact”.
+                  </li>
+                )}
+              </ul>
+            </DialogContent>
+          </Dialog>
+
+          <Link to="/donate" className="site-donate">
+            <Heart size={22} fill="currentColor" aria-hidden="true" />
+            <span>Donate</span>
+          </Link>
+
+          <Dialog open={menuOpen} onOpenChange={setMenuOpen}>
+            <DialogTrigger asChild>
+              <button
+                className="site-icon-button site-menu-trigger"
+                aria-label="Open navigation menu"
+              >
+                <Menu size={25} aria-hidden="true" />
+              </button>
+            </DialogTrigger>
+            <DialogContent className="site-mobile-menu">
+              <DialogTitle className="font-sans text-2xl text-white">Explore SCFI</DialogTitle>
+              <DialogDescription className="text-white/70">
+                Shavonne Care Foundation International
+              </DialogDescription>
+              <nav aria-label="Mobile navigation" className="mt-3 flex flex-col">
+                {NAV.map((item) => (
+                  <div key={item.to}>
+                    <Link
+                      to={item.to}
+                      onClick={() => setMenuOpen(false)}
+                      className="site-mobile-menu__link"
+                      activeOptions={{ exact: true }}
+                      activeProps={{ className: "site-mobile-menu__link--active" }}
+                    >
+                      {item.label}
+                      <ArrowUpRight size={20} aria-hidden="true" />
+                    </Link>
+                    {item.to === "/get-involved" ? (
+                      <Link
+                        to="/careers"
+                        onClick={() => setMenuOpen(false)}
+                        className="site-mobile-menu__sub-link"
+                      >
+                        Careers
+                        <ArrowUpRight size={18} aria-hidden="true" />
+                      </Link>
+                    ) : null}
+                  </div>
+                ))}
+                <Link to="/donate" onClick={() => setMenuOpen(false)} className="site-donate mt-6">
+                  <Heart size={20} fill="currentColor" aria-hidden="true" />
+                  Donate
+                </Link>
+              </nav>
+            </DialogContent>
+          </Dialog>
+        </div>
       </div>
-
-      {open && (
-        <nav className="flex flex-col gap-1 border-t border-white/10 px-5 pt-3 pb-5 xl:hidden">
-          {NAV.map((item) => (
-            <Link
-              key={item.to}
-              to={item.to}
-              onClick={() => setOpen(false)}
-              className="py-2 text-sm font-medium opacity-90"
-            >
-              {item.label}
-            </Link>
-          ))}
-          <Link
-            to="/donate"
-            onClick={() => setOpen(false)}
-            className="mt-2 rounded-full bg-accent px-5 py-2 text-center text-sm font-semibold text-accent-foreground"
-          >
-            Donate
-          </Link>
-          <Link
-            to="/get-involved"
-            onClick={() => setOpen(false)}
-            className="mt-2 rounded-full bg-brand-red px-5 py-2 text-center text-sm font-semibold text-brand-red-foreground"
-          >
-            Partner With Us
-          </Link>
-        </nav>
-      )}
     </header>
   );
 }

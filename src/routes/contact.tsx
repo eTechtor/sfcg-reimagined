@@ -28,6 +28,7 @@ const REASONS = [
   "Partnership",
   "Donation",
   "Volunteering",
+  "Newsletter and Updates",
   "Program Support",
   "Media Inquiry",
   "Careers",
@@ -46,8 +47,8 @@ function ContactPage() {
         We Would Love to Hear From You
       </h1>
       <p className="mt-6 text-lg text-muted-foreground">
-        Contact Shavonne Care Foundation International to learn more about our work,
-        discuss a partnership, volunteer, support a program or request organizational
+        Contact Shavonne Care Foundation International to learn more about our work, discuss a
+        partnership, volunteer, receive updates, support a programme or request organisational
         information.
       </p>
 
@@ -66,12 +67,7 @@ function ContactPage() {
           placeholder="Email address"
           className={inputClass}
         />
-        <input
-          type="tel"
-          maxLength={30}
-          placeholder="Telephone number"
-          className={inputClass}
-        />
+        <input type="tel" maxLength={30} placeholder="Telephone number" className={inputClass} />
         <input maxLength={150} placeholder="Organization" className={inputClass} />
         <select required defaultValue="" className={inputClass}>
           <option value="" disabled>
@@ -83,13 +79,7 @@ function ContactPage() {
             </option>
           ))}
         </select>
-        <textarea
-          required
-          rows={5}
-          maxLength={1000}
-          placeholder="Message"
-          className={inputClass}
-        />
+        <textarea required rows={5} maxLength={1000} placeholder="Message" className={inputClass} />
         <button
           type="submit"
           className="rounded-full bg-primary px-7 py-3 text-sm font-semibold text-primary-foreground"
