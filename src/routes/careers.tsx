@@ -1,3 +1,4 @@
+import { PageHero } from "../components/page-hero";
 import { createFileRoute, Link } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/careers")({
@@ -24,20 +25,10 @@ export const Route = createFileRoute("/careers")({
 function CareersPage() {
   return (
     <>
-      <section className="bg-sand">
-        <div className="mx-auto max-w-3xl px-5 py-20">
-          <p className="text-sm font-semibold tracking-[0.18em] text-primary uppercase">
-            Work with SCFI
-          </p>
-          <h1 className="mt-4 text-4xl font-semibold text-foreground uppercase md:text-5xl">
-            Careers
-          </h1>
-          <p className="mt-6 text-lg text-muted-foreground">
-            Join a team committed to improving health, education, nutrition, food security and
-            economic opportunity for underserved communities.
-          </p>
-        </div>
-      </section>
+      <PageHero eyebrow="Work with SCFI" title="Build a career with purpose.">
+        Join a team committed to improving health, education and economic opportunity for
+        underserved communities.
+      </PageHero>
 
       <section className="bg-background">
         <div className="mx-auto max-w-3xl px-5 py-20">

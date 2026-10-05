@@ -1,3 +1,5 @@
+import { PageHero } from "../components/page-hero";
+import boardImage from "../assets/scfi-board-meeting.jpg";
 import { createFileRoute, Link } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/approach")({
@@ -83,19 +85,20 @@ const PRIORITIES = [
 function ApproachPage() {
   return (
     <>
-      <div className="mx-auto max-w-5xl px-5 py-20">
-        <h1 className="text-4xl font-semibold text-foreground uppercase">
-          How We Create Sustainable Change
-        </h1>
-        <p className="mt-6 max-w-3xl text-lg text-muted-foreground">
-          We believe meaningful development begins by listening to communities and
-          understanding their most urgent needs. Our approach combines community needs
-          assessments, carefully designed programs, strategic partnerships, capacity
-          building and continuous learning.
-        </p>
+      <PageHero
+        eyebrow="Our approach"
+        title="Listen. Collaborate. Create lasting change."
+        image={boardImage}
+        imageAlt="A collaborative stakeholder meeting"
+      >
+        We begin with community priorities, build meaningful partnerships and use what we learn to
+        strengthen our programmes.
+      </PageHero>
+      <div className="site-container section-space">
         <div className="mt-12 grid gap-6 sm:grid-cols-2">
-          {STEPS.map((s) => (
+          {STEPS.map((s, index) => (
             <div key={s.title} className="border border-border bg-card p-7">
+              <p className="eyebrow">Step {String(index + 1).padStart(2, "0")}</p>
               <h2 className="text-xl font-semibold text-card-foreground">{s.title}</h2>
               <p className="mt-3 text-muted-foreground">{s.body}</p>
             </div>
@@ -117,9 +120,8 @@ function ApproachPage() {
             Building an Organization That Can Deliver Lasting Impact
           </h2>
           <p className="mt-4 max-w-3xl text-muted-foreground">
-            Our strategic roadmap focuses on strengthening SCFI as an institution while
-            designing, implementing and expanding programs that respond to community
-            priorities.
+            Our strategic roadmap focuses on strengthening SCFI as an institution while designing,
+            implementing and expanding programs that respond to community priorities.
           </p>
           <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {PRIORITIES.map((p) => (

@@ -1,3 +1,5 @@
+import { PageHero } from "../components/page-hero";
+import { Mail, MapPin, Phone } from "lucide-react";
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 
@@ -35,67 +37,112 @@ const REASONS = [
   "Complaints or Feedback",
 ];
 
-const inputClass =
-  "w-full border border-input bg-background px-4 py-3 text-sm outline-none focus:border-primary";
-
 function ContactPage() {
-  const [sent, setSent] = useState(false);
-
+  const [prepared, setPrepared] = useState(false);
   return (
-    <div className="mx-auto max-w-2xl px-5 py-20">
-      <h1 className="text-4xl font-semibold text-foreground uppercase">
-        We Would Love to Hear From You
-      </h1>
-      <p className="mt-6 text-lg text-muted-foreground">
-        Contact Shavonne Care Foundation International to learn more about our work, discuss a
-        partnership, volunteer, receive updates, support a programme or request organisational
-        information.
-      </p>
-
-      <form
-        className="mt-10 space-y-4"
-        onSubmit={(e) => {
-          e.preventDefault();
-          setSent(true);
-        }}
-      >
-        <input required maxLength={120} placeholder="Full name" className={inputClass} />
-        <input
-          required
-          type="email"
-          maxLength={255}
-          placeholder="Email address"
-          className={inputClass}
-        />
-        <input type="tel" maxLength={30} placeholder="Telephone number" className={inputClass} />
-        <input maxLength={150} placeholder="Organization" className={inputClass} />
-        <select required defaultValue="" className={inputClass}>
-          <option value="" disabled>
-            Reason for contact
-          </option>
-          {REASONS.map((r) => (
-            <option key={r} value={r}>
-              {r}
-            </option>
-          ))}
-        </select>
-        <textarea required rows={5} maxLength={1000} placeholder="Message" className={inputClass} />
-        <button
-          type="submit"
-          className="rounded-full bg-primary px-7 py-3 text-sm font-semibold text-primary-foreground"
+    <>
+      <PageHero eyebrow="Contact" title="Let's start a conversation.">
+        Volunteer, explore a partnership or ask about our work. Our team would love to hear from
+        you.
+      </PageHero>
+      <div className="site-container section-space contact-layout">
+        <aside className="contact-details">
+          <p className="eyebrow">Connect with SCFI</p>
+          <h2>Here to listen.</h2>
+          <div>
+            <Mail size={22} aria-hidden="true" />
+            <p>
+              <strong>Email</strong>
+              <a href="mailto:info@scfi.org">info@scfi.org</a>
+            </p>
+          </div>
+          <div>
+            <Phone size={22} aria-hidden="true" />
+            <p>
+              <strong>Telephone</strong>
+              <a href="tel:+2349123056270">+234 912 305 6270</a>
+            </p>
+          </div>
+          <div>
+            <MapPin size={22} aria-hidden="true" />
+            <p>
+              <strong>Visit our office</strong>House 1, Afiyo Estate, Loko Junction, Orozo, FCT
+              Abuja.
+            </p>
+          </div>
+          <p>
+            Monday – Friday
+            <br />
+            9:00am – 5:00pm
+          </p>
+        </aside>
+        <form
+          className="contact-form surface-card"
+          onSubmit={(event) => {
+            event.preventDefault();
+            const data = new FormData(event.currentTarget);
+            const subject = encodeURIComponent("SCFI enquiry: " + data.get("reason"));
+            const body = encodeURIComponent(
+              [
+                data.get("message"),
+                "",
+                "Name: " + data.get("name"),
+                "Email: " + data.get("email"),
+                "Telephone: " + (data.get("telephone") || "Not provided"),
+                "Organisation: " + (data.get("organisation") || "Not provided"),
+              ].join("\n"),
+            );
+            window.location.href = "mailto:info@scfi.org?subject=" + subject + "&body=" + body;
+            setPrepared(true);
+          }}
         >
-          {sent ? "Thanks — your message was sent" : "Send Message"}
-        </button>
-      </form>
-
-      <div className="mt-14 border-t border-border pt-8 text-sm text-muted-foreground">
-        <p>Email: info@scfi.org</p>
-        <p>
-          Telephone: <a href="tel:+2349123056270">+2349123056270</a>
-        </p>
-        <p>Office address: House 1, Afiyo Estate, Loko Junction, Orozo, FCT Abuja</p>
-        <p>Operating hours: Monday – Friday, 9:00am – 5:00pm</p>
+          <h2>How can we help?</h2>
+          <p>
+            This form prepares an email in your email app. Review it there and send it to our team.
+            Fields marked * are required.
+          </p>
+          <div className="form-grid">
+            <label>
+              Full name *<input name="name" required maxLength={120} autoComplete="name" />
+            </label>
+            <label>
+              Email address *
+              <input name="email" required type="email" maxLength={255} autoComplete="email" />
+            </label>
+            <label>
+              Telephone <span>(optional)</span>
+              <input name="telephone" type="tel" maxLength={30} autoComplete="tel" />
+            </label>
+            <label>
+              Organisation <span>(optional)</span>
+              <input name="organisation" maxLength={150} autoComplete="organization" />
+            </label>
+          </div>
+          <label>
+            Reason for contact *
+            <select name="reason" required defaultValue="">
+              <option value="" disabled>
+                Select a reason
+              </option>
+              {REASONS.map((reason) => (
+                <option key={reason}>{reason}</option>
+              ))}
+            </select>
+          </label>
+          <label>
+            Your message *<textarea name="message" required rows={6} maxLength={3000} />
+          </label>
+          <button type="submit" className="button">
+            Prepare email <Mail size={18} aria-hidden="true" />
+          </button>
+          {prepared && (
+            <p role="status" className="form-notice">
+              Your email is prepared. Complete sending in your email app. If it did not open, email{" "}
+              <a href="mailto:info@scfi.org">info@scfi.org</a> directly.
+            </p>
+          )}
+        </form>
       </div>
-    </div>
+    </>
   );
 }

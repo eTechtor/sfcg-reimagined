@@ -15,7 +15,7 @@ const NAV = [
       "Health, education, nutrition, agriculture, food security and empowerment programs.",
   },
   {
-    label: "Our Impact",
+    label: "Our Approach",
     to: "/approach",
     description: "Our approach to sustainable change, community partnerships and accountability.",
   },

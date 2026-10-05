@@ -1,3 +1,5 @@
+import { PageHero } from "../components/page-hero";
+import { Link } from "@tanstack/react-router";
 import { createFileRoute } from "@tanstack/react-router";
 import { CircleAlert, CircleCheck, LoaderCircle, LockKeyhole } from "lucide-react";
 import { FormEvent, useEffect, useMemo, useState } from "react";
@@ -147,210 +149,226 @@ function DonatePage() {
   }
 
   return (
-    <div className="mx-auto max-w-xl px-5 py-20">
-      <h1 className="text-4xl font-semibold text-foreground uppercase">
-        Your Support Can Help Create Opportunity
-      </h1>
-      <p className="mt-5 text-muted-foreground">
-        Your contribution can support the development and delivery of healthcare, education,
-        nutrition, agriculture and livelihood initiatives for underserved communities. Every act of
-        support brings us closer to a future in which people can live healthier lives, access
-        education and build sustainable livelihoods.
-      </p>
-
-      {verification.status !== "idle" && (
-        <div
-          className={`mt-8 flex gap-3 border p-4 ${
-            verification.status === "success"
-              ? "border-green-700/30 bg-green-50 text-green-950"
-              : verification.status === "error"
-                ? "border-destructive/30 bg-destructive/5 text-foreground"
-                : "border-border bg-muted/50 text-foreground"
-          }`}
-          role="status"
-          aria-live="polite"
-        >
-          {verification.status === "checking" && (
-            <LoaderCircle className="mt-0.5 size-5 shrink-0 animate-spin" aria-hidden="true" />
-          )}
-          {verification.status === "success" && (
-            <CircleCheck className="mt-0.5 size-5 shrink-0" aria-hidden="true" />
-          )}
-          {verification.status === "error" && (
-            <CircleAlert className="mt-0.5 size-5 shrink-0 text-destructive" aria-hidden="true" />
-          )}
-          <div>
-            <p className="font-semibold">
-              {verification.status === "checking" && "Confirming your donation…"}
-              {verification.status === "success" && "Thank you for your donation!"}
-              {verification.status === "error" && "Payment not confirmed"}
+    <>
+      <PageHero eyebrow="Support our work" title="Help opportunity reach further.">
+        Your contribution supports health, education, nutrition and livelihoods for underserved
+        communities.
+      </PageHero>
+      <div className="donation-container section-space">
+        {!config.configured && (
+          <div className="surface-card donation-unavailable" role="status">
+            <CircleAlert size={32} className="section-icon" aria-hidden="true" />
+            <h2>Let's talk about giving.</h2>
+            <p>
+              Online donations are not available yet. Contact our team to discuss supporting a
+              programme.
             </p>
+            <Link to="/contact" className="button">
+              Contact our team
+            </Link>
+          </div>
+        )}
+        {verification.status !== "idle" && (
+          <div
+            className={`mt-8 flex gap-3 border p-4 ${
+              verification.status === "success"
+                ? "border-green-700/30 bg-green-50 text-green-950"
+                : verification.status === "error"
+                  ? "border-destructive/30 bg-destructive/5 text-foreground"
+                  : "border-border bg-muted/50 text-foreground"
+            }`}
+            role="status"
+            aria-live="polite"
+          >
+            {verification.status === "checking" && (
+              <LoaderCircle className="mt-0.5 size-5 shrink-0 animate-spin" aria-hidden="true" />
+            )}
             {verification.status === "success" && (
-              <p className="mt-1 text-sm">
-                We verified your {formatter.format(verification.amount)} contribution. Your Paystack
-                reference is {verification.reference}.
-              </p>
+              <CircleCheck className="mt-0.5 size-5 shrink-0" aria-hidden="true" />
             )}
             {verification.status === "error" && (
-              <p className="mt-1 text-sm">{verification.message}</p>
+              <CircleAlert className="mt-0.5 size-5 shrink-0 text-destructive" aria-hidden="true" />
             )}
+            <div>
+              <p className="font-semibold">
+                {verification.status === "checking" && "Confirming your donation…"}
+                {verification.status === "success" && "Thank you for your donation!"}
+                {verification.status === "error" && "Payment not confirmed"}
+              </p>
+              {verification.status === "success" && (
+                <p className="mt-1 text-sm">
+                  We verified your {formatter.format(verification.amount)} contribution. Your
+                  Paystack reference is {verification.reference}.
+                </p>
+              )}
+              {verification.status === "error" && (
+                <p className="mt-1 text-sm">{verification.message}</p>
+              )}
+            </div>
           </div>
-        </div>
-      )}
+        )}
 
-      <form className="mt-10 border border-border bg-card p-7" onSubmit={handleSubmit}>
-        <div className="grid grid-cols-2 overflow-hidden rounded-full border border-border">
-          <button
-            type="button"
-            onClick={() => chooseFrequency(false)}
-            className={`py-2 text-sm font-semibold transition ${
-              !monthly
-                ? "bg-primary text-primary-foreground"
-                : "bg-transparent text-muted-foreground"
-            }`}
-          >
-            Give once
-          </button>
-          <button
-            type="button"
-            onClick={() => chooseFrequency(true)}
-            disabled={!monthlyEnabled}
-            title={monthlyEnabled ? undefined : "Monthly giving is not configured yet"}
-            className={`py-2 text-sm font-semibold transition disabled:cursor-not-allowed disabled:opacity-45 ${
-              monthly
-                ? "bg-primary text-primary-foreground"
-                : "bg-transparent text-muted-foreground"
-            }`}
-          >
-            Give monthly
-          </button>
-        </div>
-
-        <fieldset className="mt-6">
-          <legend className="text-sm font-semibold text-foreground">Donation amount</legend>
-          <div
-            className={`mt-2 grid gap-2 ${availableAmounts.length === 4 ? "grid-cols-4" : "grid-cols-2"}`}
-          >
-            {availableAmounts.map((a) => (
+        {config.configured && (
+          <form className="surface-card donation-form" onSubmit={handleSubmit}>
+            <p className="mb-6 text-sm text-muted-foreground">
+              All amounts are in {config.currency}. Complete your payment securely with Paystack.
+            </p>
+            <div className="grid grid-cols-2 overflow-hidden rounded-full border border-border">
               <button
                 type="button"
-                key={a}
-                onClick={() => {
-                  setAmount(a);
-                  setCustomAmount("");
-                }}
-                className={`border py-3 text-sm font-semibold transition ${
-                  amount === a && customAmount === ""
-                    ? "border-primary bg-primary/10 text-foreground"
-                    : "border-border text-muted-foreground"
+                onClick={() => chooseFrequency(false)}
+                className={`py-2 text-sm font-semibold transition ${
+                  !monthly
+                    ? "bg-primary text-primary-foreground"
+                    : "bg-transparent text-muted-foreground"
                 }`}
               >
-                {formatter.format(a)}
+                Give once
               </button>
-            ))}
-          </div>
-        </fieldset>
-
-        {!monthly && (
-          <label className="mt-4 block text-sm font-semibold text-foreground">
-            Other amount
-            <div className="mt-2 flex items-center border border-border bg-background focus-within:border-primary">
-              <span className="border-r border-border px-3 py-3 text-sm text-muted-foreground">
-                {config.currency}
-              </span>
-              <input
-                type="number"
-                min="1"
-                max="1000000"
-                step="0.01"
-                inputMode="decimal"
-                value={customAmount}
-                onChange={(event) => setCustomAmount(event.target.value)}
-                placeholder="Enter an amount"
-                className="min-w-0 flex-1 bg-transparent px-3 py-3 text-sm outline-none"
-              />
+              <button
+                type="button"
+                onClick={() => chooseFrequency(true)}
+                disabled={!monthlyEnabled}
+                title={monthlyEnabled ? undefined : "Monthly giving is not configured yet"}
+                className={`py-2 text-sm font-semibold transition disabled:cursor-not-allowed disabled:opacity-45 ${
+                  monthly
+                    ? "bg-primary text-primary-foreground"
+                    : "bg-transparent text-muted-foreground"
+                }`}
+              >
+                Give monthly
+              </button>
             </div>
-          </label>
+
+            <fieldset className="mt-6">
+              <legend className="text-sm font-semibold text-foreground">Donation amount</legend>
+              <div
+                className={`mt-2 grid gap-2 ${availableAmounts.length === 4 ? "grid-cols-4" : "grid-cols-2"}`}
+              >
+                {availableAmounts.map((a) => (
+                  <button
+                    type="button"
+                    key={a}
+                    onClick={() => {
+                      setAmount(a);
+                      setCustomAmount("");
+                    }}
+                    className={`border py-3 text-sm font-semibold transition ${
+                      amount === a && customAmount === ""
+                        ? "border-primary bg-primary/10 text-foreground"
+                        : "border-border text-muted-foreground"
+                    }`}
+                  >
+                    {formatter.format(a)}
+                  </button>
+                ))}
+              </div>
+            </fieldset>
+
+            {!monthly && (
+              <label className="mt-4 block text-sm font-semibold text-foreground">
+                Other amount
+                <div className="mt-2 flex items-center border border-border bg-background focus-within:border-primary">
+                  <span className="border-r border-border px-3 py-3 text-sm text-muted-foreground">
+                    {config.currency}
+                  </span>
+                  <input
+                    type="number"
+                    min="1"
+                    max="1000000"
+                    step="0.01"
+                    inputMode="decimal"
+                    value={customAmount}
+                    onChange={(event) => setCustomAmount(event.target.value)}
+                    placeholder="Enter an amount"
+                    className="min-w-0 flex-1 bg-transparent px-3 py-3 text-sm outline-none"
+                  />
+                </div>
+              </label>
+            )}
+
+            <div className="mt-6 grid gap-4 sm:grid-cols-2">
+              <label className="text-sm font-semibold text-foreground">
+                First name <span className="font-normal text-muted-foreground">(optional)</span>
+                <input
+                  value={firstName}
+                  onChange={(event) => setFirstName(event.target.value)}
+                  autoComplete="given-name"
+                  maxLength={80}
+                  className="mt-2 w-full border border-border bg-background px-3 py-3 text-sm outline-none focus:border-primary"
+                />
+              </label>
+              <label className="text-sm font-semibold text-foreground">
+                Last name <span className="font-normal text-muted-foreground">(optional)</span>
+                <input
+                  value={lastName}
+                  onChange={(event) => setLastName(event.target.value)}
+                  autoComplete="family-name"
+                  maxLength={80}
+                  className="mt-2 w-full border border-border bg-background px-3 py-3 text-sm outline-none focus:border-primary"
+                />
+              </label>
+            </div>
+
+            <label className="mt-4 block text-sm font-semibold text-foreground">
+              Email address
+              <input
+                type="email"
+                required
+                value={email}
+                onChange={(event) => setEmail(event.target.value)}
+                autoComplete="email"
+                maxLength={254}
+                placeholder="you@example.com"
+                className="mt-2 w-full border border-border bg-background px-3 py-3 text-sm outline-none focus:border-primary"
+              />
+            </label>
+
+            {formError && (
+              <div
+                className="mt-4 flex gap-2 border border-destructive/30 bg-destructive/5 p-3 text-sm text-foreground"
+                role="alert"
+              >
+                <CircleAlert
+                  className="mt-0.5 size-4 shrink-0 text-destructive"
+                  aria-hidden="true"
+                />
+                <p>{formError}</p>
+              </div>
+            )}
+
+            <button
+              type="submit"
+              disabled={submitting || !config.configured}
+              className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-primary py-3 text-sm font-semibold text-primary-foreground transition hover:brightness-95 disabled:cursor-not-allowed disabled:opacity-60"
+            >
+              {submitting ? (
+                <>
+                  <LoaderCircle className="size-4 animate-spin" aria-hidden="true" />
+                  Connecting to Paystack…
+                </>
+              ) : (
+                <>
+                  <LockKeyhole className="size-4" aria-hidden="true" />
+                  Give{" "}
+                  {Number.isFinite(selectedAmount) && selectedAmount > 0
+                    ? formatter.format(selectedAmount)
+                    : "now"}{" "}
+                  {monthly ? "monthly" : "now"}
+                </>
+              )}
+            </button>
+            {!config.configured && (
+              <p className="mt-3 text-center text-sm text-destructive" role="status">
+                Online donations are being configured. Please check back soon.
+              </p>
+            )}
+            <p className="mt-4 text-xs text-muted-foreground">
+              Amounts are in {config.currency}. You’ll complete payment securely on Paystack.
+            </p>
+          </form>
         )}
-
-        <div className="mt-6 grid gap-4 sm:grid-cols-2">
-          <label className="text-sm font-semibold text-foreground">
-            First name <span className="font-normal text-muted-foreground">(optional)</span>
-            <input
-              value={firstName}
-              onChange={(event) => setFirstName(event.target.value)}
-              autoComplete="given-name"
-              maxLength={80}
-              className="mt-2 w-full border border-border bg-background px-3 py-3 text-sm outline-none focus:border-primary"
-            />
-          </label>
-          <label className="text-sm font-semibold text-foreground">
-            Last name <span className="font-normal text-muted-foreground">(optional)</span>
-            <input
-              value={lastName}
-              onChange={(event) => setLastName(event.target.value)}
-              autoComplete="family-name"
-              maxLength={80}
-              className="mt-2 w-full border border-border bg-background px-3 py-3 text-sm outline-none focus:border-primary"
-            />
-          </label>
-        </div>
-
-        <label className="mt-4 block text-sm font-semibold text-foreground">
-          Email address
-          <input
-            type="email"
-            required
-            value={email}
-            onChange={(event) => setEmail(event.target.value)}
-            autoComplete="email"
-            maxLength={254}
-            placeholder="you@example.com"
-            className="mt-2 w-full border border-border bg-background px-3 py-3 text-sm outline-none focus:border-primary"
-          />
-        </label>
-
-        {formError && (
-          <div
-            className="mt-4 flex gap-2 border border-destructive/30 bg-destructive/5 p-3 text-sm text-foreground"
-            role="alert"
-          >
-            <CircleAlert className="mt-0.5 size-4 shrink-0 text-destructive" aria-hidden="true" />
-            <p>{formError}</p>
-          </div>
-        )}
-
-        <button
-          type="submit"
-          disabled={submitting || !config.configured}
-          className="mt-6 flex w-full items-center justify-center gap-2 rounded-full bg-accent py-3 text-sm font-semibold text-accent-foreground transition hover:brightness-95 disabled:cursor-not-allowed disabled:opacity-60"
-        >
-          {submitting ? (
-            <>
-              <LoaderCircle className="size-4 animate-spin" aria-hidden="true" />
-              Connecting to Paystack…
-            </>
-          ) : (
-            <>
-              <LockKeyhole className="size-4" aria-hidden="true" />
-              Give{" "}
-              {Number.isFinite(selectedAmount) && selectedAmount > 0
-                ? formatter.format(selectedAmount)
-                : "now"}{" "}
-              {monthly ? "monthly" : "now"}
-            </>
-          )}
-        </button>
-        {!config.configured && (
-          <p className="mt-3 text-center text-sm text-destructive" role="status">
-            Online donations are being configured. Please check back soon.
-          </p>
-        )}
-        <p className="mt-4 text-xs text-muted-foreground">
-          Contributions are tax deductible in the US. Amounts are in {config.currency}. You’ll
-          complete payment securely on Paystack.
-        </p>
-      </form>
-    </div>
+      </div>
+    </>
   );
 }

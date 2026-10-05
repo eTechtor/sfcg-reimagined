@@ -1,3 +1,6 @@
+import { PageHero } from "../components/page-hero";
+import { ProgrammeGrid } from "../components/programme-grid";
+import outreachImage from "../assets/hero-health-outreach.jpg";
 import { createFileRoute, Link } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/what-we-do")({
@@ -22,61 +25,37 @@ export const Route = createFileRoute("/what-we-do")({
   component: WhatWeDoPage,
 });
 
-const AREAS = [
-  {
-    title: "Public Health",
-    body: "We work to improve the health and wellbeing of children and women by supporting access to quality healthcare services, health education and community-based interventions.",
-  },
-  {
-    title: "Education",
-    body: "We support children and young people through initiatives focused on literacy, numeracy, vocational education and practical skills for personal and professional development.",
-  },
-  {
-    title: "Nutrition",
-    body: "We support sustainable nutrition programs for children — particularly children under five — and women of reproductive age. Our goal is to help prevent and manage malnutrition while promoting healthier families and communities.",
-  },
-  {
-    title: "Innovative Agriculture and Food Security",
-    body: "We promote food security through climate-conscious and innovative agricultural initiatives that can strengthen food production, household resilience and community livelihoods.",
-  },
-  {
-    title: "Empowerment and Livelihoods",
-    body: "We empower women and young people through career development, skills training and sustainable economic empowerment initiatives that can improve income and self-reliance.",
-  },
-];
-
 function WhatWeDoPage() {
   return (
-    <div className="mx-auto max-w-5xl px-5 py-20">
-      <h1 className="text-4xl font-semibold text-foreground uppercase">
-        Our Areas of Focus
-      </h1>
-      <p className="mt-6 max-w-3xl text-lg text-muted-foreground">
-        Our programs address interconnected challenges that affect the health, dignity
-        and economic wellbeing of underserved communities.
-      </p>
-      <div className="mt-12 grid gap-6 sm:grid-cols-2">
-        {AREAS.map((a) => (
-          <div key={a.title} className="border border-border bg-card p-7">
-            <h2 className="text-xl font-semibold text-card-foreground">{a.title}</h2>
-            <p className="mt-3 text-muted-foreground">{a.body}</p>
-          </div>
-        ))}
-      </div>
-      <div className="mt-12 flex flex-wrap gap-3">
-        <Link
-          to="/donate"
-          className="rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground"
-        >
-          Support a Program
-        </Link>
-        <Link
-          to="/get-involved"
-          className="rounded-full border border-border px-6 py-3 text-sm font-semibold text-foreground"
-        >
-          Partner With Us
-        </Link>
-      </div>
-    </div>
+    <>
+      <PageHero
+        eyebrow="Our work"
+        title="Opportunity, in every area of life."
+        image={outreachImage}
+        imageAlt="Community members at a health facility"
+      >
+        Our programmes connect health, education, nutrition and livelihoods to support stronger,
+        more resilient communities.
+      </PageHero>
+      <section className="site-container section-space">
+        <div className="section-heading">
+          <p className="eyebrow">Our areas of focus</p>
+          <h2>Working together for wellbeing.</h2>
+          <p>
+            We respond to the challenges communities identify, with practical support across five
+            connected areas.
+          </p>
+        </div>
+        <ProgrammeGrid />
+        <div className="button-row">
+          <Link to="/donate" className="button">
+            Support a programme
+          </Link>
+          <Link to="/get-involved" className="button button--outline">
+            Partner with us
+          </Link>
+        </div>
+      </section>
+    </>
   );
 }

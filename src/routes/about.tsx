@@ -1,3 +1,5 @@
+import { PageHero } from "../components/page-hero";
+import boardImage from "../assets/scfi-board-meeting.jpg";
 import { createFileRoute } from "@tanstack/react-router";
 
 import adamsShaibuPhoto from "../assets/team-adams-shaibu.jpg";
@@ -148,27 +150,88 @@ const TEAM_MEMBERS = [
 function AboutPage() {
   return (
     <>
-      <div className="mx-auto max-w-3xl px-5 py-20">
-        <h1 className="text-4xl font-semibold text-foreground uppercase">Who we are</h1>
-        <p className="mt-6 text-lg text-muted-foreground">
-          Shavonne Care Foundation International was incorporated on 20 April 2022 to advance
-          sustainable development and improve the wellbeing of children, young people, women,
-          indigent people and other vulnerable groups.
-        </p>
-        <h2 className="mt-12 text-2xl font-semibold text-foreground">Our mission</h2>
-        <p className="mt-4 text-muted-foreground">
-          To empower marginalized communities — particularly children, young people, women and
-          vulnerable groups — through sustainable programs that improve health, education,
-          nutrition, food security and economic opportunity.
-        </p>
-        <h2 className="mt-12 text-2xl font-semibold text-foreground">Our vision</h2>
-        <p className="mt-4 text-muted-foreground">
-          We envision a world where every individual has access to quality healthcare, education and
-          economic opportunities.
-        </p>
-      </div>
-
-      <section className="bg-background" aria-labelledby="team-heading">
+      <PageHero
+        eyebrow="About SCFI"
+        title="People first. Possibilities for all."
+        image={boardImage}
+        imageAlt="Stakeholders working together around a conference table"
+      >
+        Incorporated on 20 April 2022, Shavonne Care Foundation International works to advance the
+        wellbeing of underserved communities.
+      </PageHero>
+      <section id="our-story" className="bg-sand">
+        <div className="site-container section-space story-layout">
+          <div>
+            <p className="eyebrow">Our story</p>
+            <h2>Built around the belief that opportunity should reach everyone.</h2>
+            <p>
+              Shavonne Care Foundation International was incorporated on 20 April 2022 to advance
+              sustainable development and improve the wellbeing of children, young people, women,
+              indigent people and other vulnerable groups.
+            </p>
+            <details className="story-details">
+              <summary>Read more about SCFI</summary>
+              <div>
+                <p>
+                  SCFI was created to help close the gaps that limit access to healthcare,
+                  education, nutrition, food security and sustainable economic opportunities. Our
+                  work centres the people and communities who are often overlooked, including
+                  low-income households and people living in remote or hard-to-reach areas.
+                </p>
+                <p>
+                  Today, our focus brings together public health, education, nutrition, innovative
+                  agriculture and food security, and empowerment and livelihoods. We work with
+                  communities, public institutions, civil-society organisations, development
+                  partners and technical experts to turn shared priorities into practical action.
+                </p>
+                <p>
+                  We listen before we design, build local capacity and use learning and feedback to
+                  improve our programmes. This approach helps ensure our work remains relevant,
+                  inclusive and capable of creating long-term value.
+                </p>
+              </div>
+            </details>
+          </div>
+          <ol className="story-timeline" aria-label="SCFI history">
+            <li>
+              <span>20 April 2022</span>
+              <h3>SCFI is incorporated</h3>
+              <p>
+                Shavonne Care Foundation International is established to advance sustainable
+                development and improve wellbeing for vulnerable communities.
+              </p>
+            </li>
+            <li>
+              <span>Our continuing work</span>
+              <h3>Community-led action</h3>
+              <p>
+                SCFI develops practical initiatives across health, education, nutrition, food
+                security and livelihoods in partnership with communities.
+              </p>
+            </li>
+          </ol>
+        </div>
+      </section>
+      <section id="mission" className="site-container section-space mission-grid">
+        <div>
+          <p className="eyebrow">Our mission</p>
+          <h2>Empowering communities to thrive.</h2>
+          <p>
+            To empower marginalised communities — particularly children, young people, women and
+            vulnerable groups — through sustainable programmes that improve health, education,
+            nutrition, food security and economic opportunity.
+          </p>
+        </div>
+        <div>
+          <p className="eyebrow">Our vision</p>
+          <h2>A future with opportunity for everyone.</h2>
+          <p>
+            We envision a world where every individual has access to quality healthcare, education
+            and economic opportunities.
+          </p>
+        </div>
+      </section>
+      <section id="team" className="bg-sand" aria-labelledby="team-heading">
         <div className="mx-auto max-w-7xl px-5 py-20">
           <h2 id="team-heading" className="text-3xl font-semibold text-foreground md:text-4xl">
             Meet Our Team
@@ -177,15 +240,16 @@ function AboutPage() {
             Our team brings together dedicated professionals committed to creating lasting
             opportunities for the communities we serve.
           </p>
-          <div className="mt-12 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
+          <div className="team-grid">
             {TEAM_MEMBERS.map((member) => (
-              <article key={member.name} className="text-center">
+              <article key={member.name} className="team-card">
                 {member.photo ? (
                   <img
                     src={member.photo}
                     alt={member.name}
                     width={400}
                     height={400}
+                    loading="lazy"
                     className={`team-photo mx-auto ${member.photoClassName ?? ""}`}
                   />
                 ) : (
@@ -204,7 +268,9 @@ function AboutPage() {
                 {member.summary ? <p className="team-member__summary">{member.summary}</p> : null}
                 {member.profile ? (
                   <details className="team-member__profile">
-                    <summary>Read profile</summary>
+                    <summary>
+                      Read profile<span className="sr-only"> of {member.name}</span>
+                    </summary>
                     {member.profile.map((paragraph) => (
                       <p key={paragraph}>{paragraph}</p>
                     ))}
@@ -216,7 +282,7 @@ function AboutPage() {
         </div>
       </section>
 
-      <section className="bg-sand">
+      <section id="values" className="bg-background">
         <div className="mx-auto max-w-7xl px-5 py-20">
           <h2 className="text-3xl font-semibold text-foreground md:text-4xl">
             Our Values Guide Every Action

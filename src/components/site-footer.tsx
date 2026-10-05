@@ -1,59 +1,27 @@
 import { Link } from "@tanstack/react-router";
-import { Facebook, Instagram, Linkedin, Twitter, Youtube } from "lucide-react";
+import { Facebook, Instagram } from "lucide-react";
 
 import logoMark from "../assets/scfi-mark.png";
 
 const COLUMNS = [
   {
-    title: "Who We Are",
+    title: "Discover",
     links: [
-      { label: "About SCFI", to: "/about" },
-      { label: "Mission and Vision", to: "/about" },
-      { label: "Our Values", to: "/about" },
-      { label: "Leadership", to: "/about" },
-      { label: "Governance", to: "/about" },
-      { label: "Strategic Plan", to: "/approach" },
+      { label: "About us", to: "/about" },
+      { label: "Our work", to: "/what-we-do" },
+      { label: "Our approach", to: "/approach" },
+      { label: "News & stories", to: "/resources" },
     ],
   },
   {
-    title: "What We Do",
+    title: "Take part",
     links: [
-      { label: "Public Health", to: "/what-we-do" },
-      { label: "Education", to: "/what-we-do" },
-      { label: "Nutrition", to: "/what-we-do" },
-      { label: "Agriculture and Food Security", to: "/what-we-do" },
-      { label: "Empowerment and Livelihoods", to: "/what-we-do" },
-    ],
-  },
-  {
-    title: "Get Involved",
-    links: [
-      { label: "Donate", to: "/donate" },
-      { label: "Volunteer", to: "/get-involved" },
-      { label: "Partner With Us", to: "/get-involved" },
+      { label: "Get involved", to: "/get-involved" },
       { label: "Careers", to: "/careers" },
-      { label: "Fund a Program", to: "/donate" },
-      { label: "Subscribe to Updates", to: "/get-involved" },
+      { label: "Donate", to: "/donate" },
+      { label: "Contact our team", to: "/contact" },
     ],
   },
-  {
-    title: "Resources",
-    links: [
-      { label: "News and Updates", to: "/resources" },
-      { label: "Publications", to: "/resources" },
-      { label: "Reports", to: "/resources" },
-      { label: "Policies", to: "/resources" },
-      { label: "Frequently Asked Questions", to: "/resources" },
-    ],
-  },
-];
-
-const LEGAL = [
-  "Privacy Policy",
-  "Terms of Use",
-  "Safeguarding Policy",
-  "Complaints and Feedback",
-  "Financial Transparency",
 ];
 
 const SOCIALS = [
@@ -67,15 +35,12 @@ const SOCIALS = [
     href: "https://www.instagram.com/shavonnecarefoundation?igsh=eHczN284aHYwOWEy",
     Icon: Instagram,
   },
-  { label: "X", href: "https://x.com", Icon: Twitter },
-  { label: "LinkedIn", href: "https://linkedin.com", Icon: Linkedin },
-  { label: "YouTube", href: "https://youtube.com", Icon: Youtube },
 ];
 
 export function SiteFooter() {
   return (
     <footer className="bg-navy text-navy-foreground">
-      <div className="mx-auto grid max-w-7xl gap-10 px-5 py-14 md:grid-cols-3 lg:grid-cols-6">
+      <div className="mx-auto grid max-w-7xl gap-10 px-5 py-14 md:grid-cols-3 lg:grid-cols-4">
         <div className="lg:col-span-2">
           <Link to="/" className="flex items-center gap-3">
             <img
@@ -105,7 +70,7 @@ export function SiteFooter() {
                 target="_blank"
                 rel="noreferrer noopener"
                 aria-label={label}
-                className="flex h-9 w-9 items-center justify-center rounded-full border border-white/20 transition hover:bg-white/10"
+                className="flex h-11 w-11 items-center justify-center rounded-full border border-white/20 transition hover:bg-white/10"
               >
                 <Icon className="h-4 w-4" />
               </a>
@@ -133,7 +98,9 @@ export function SiteFooter() {
       <div className="mx-auto max-w-7xl px-5 pb-10">
         <h3 className="text-sm font-semibold tracking-[0.18em] uppercase opacity-70">Contact</h3>
         <div className="mt-3 grid gap-1 text-sm opacity-85 sm:grid-cols-2 lg:grid-cols-4">
-          <p>Email: info@scfi.org</p>
+          <p>
+            Email: <a href="mailto:info@scfi.org">info@scfi.org</a>
+          </p>
           <p>
             Telephone: <a href="tel:+2349123056270">+2349123056270</a>
           </p>
@@ -145,9 +112,7 @@ export function SiteFooter() {
       <div className="border-t border-white/10">
         <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-x-5 gap-y-2 px-5 py-5 text-xs opacity-60">
           <p>© 2026 Shavonne Care Foundation International. All rights reserved.</p>
-          {LEGAL.map((item) => (
-            <span key={item}>{item}</span>
-          ))}
+          <Link to="/contact">Questions or feedback? Contact us</Link>
         </div>
       </div>
     </footer>
