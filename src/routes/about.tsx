@@ -5,6 +5,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import adamsShaibuPhoto from "../assets/team-adams-shaibu.jpg";
 import abuBuhariPhoto from "../assets/team-abu-buhari.jpg";
 import emmanuelChagbePhoto from "../assets/team-emmanuel-chagbe.jpg";
+import jimohAdinoyiPhoto from "../assets/team-jimoh-adinoyi.png";
 import jobOnuchePhoto from "../assets/team-job-onuche.jpg";
 import patriciaAkorPhoto from "../assets/team-patricia-akor.jpg";
 import peterAbohPhoto from "../assets/team-peter-aboh.jpg";
@@ -125,6 +126,19 @@ const TEAM_MEMBERS = [
       "He is a seasoned public health specialist and development professional with more than 19 years of experience in HIV/AIDS programming, maternal and child health, nutrition, behavioural change communication, logistics and supply-chain management, key-population programming, agricultural processing and livelihood enhancement, project management, team building and capacity building.",
       "He has worked on World Bank, USAID, CDC, US DoD, Global Fund and UNICEF-funded projects. He is the Managing Consultant of MBASE Consulting Services and the Executive Director of Smiling Sheikh Global Services.",
       "His interests include counselling, stakeholder management and health-systems strengthening. He is currently the Case Finding Advisor and Mental Health Point of Contact for the Walter Reed Army Institute of Research – Africa.",
+    ],
+  },
+  {
+    name: "Jimoh Jibril Adinoyi",
+    role: "Resource Mobilization Officer",
+    photo: jimohAdinoyiPhoto,
+    summary:
+      "Public health professional with over 10 years of experience in the NGO and development sector.",
+    profile: [
+      "Jimoh Jibril Adinoyi is a Public Health professional with over 10 years of experience working in the NGO and development sector. He has extensive experience in programme coordination, project implementation, community engagement, proposal development, resource mobilisation, monitoring and evaluation, and stakeholder engagement.",
+      "Over the course of his career, Jimoh has contributed to the planning and implementation of public health and community development programmes, working with stakeholders at national, state, local government and community levels. His experience includes supporting health programmes, coordinating field activities, developing technical proposals and reports, facilitating trainings, and promoting the effective use of data for planning and decision-making.",
+      "He is passionate about strengthening health systems, improving community wellbeing, supporting evidence-based programming and contributing to sustainable development initiatives. Jimoh brings strong organisational, communication, coordination and problem-solving skills to every project he undertakes.",
+      "Areas of expertise: Public Health, Programme Coordination, Project Management, Proposal Development, Resource Mobilisation, Training and Capacity Building, Community Engagement, Monitoring and Evaluation, and Data Use for Decision-Making.",
     ],
   },
   {
